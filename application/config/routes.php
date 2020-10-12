@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
@@ -52,3 +52,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+
+# Admin routes
+$route['admin_dashboard'] = 'admin/admin_dashboard';
+$route['admin_product'] = 'admin/admin_product';
+$route['admin_product/add_product'] = 'admin/admin_product/add_product';
