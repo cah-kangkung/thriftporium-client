@@ -85,7 +85,7 @@ class Admin_product extends CI_Controller
 
                 $product_pictures = array(); // for inserting to db
                 $total_image = count($_FILES['pictures']['name']);
-                for ($i = 0; $i <= $total_image; $i++) {
+                for ($i = 0; $i < $total_image; $i++) {
 
                     if (!empty($_FILES['pictures']['name'][$i])) {
 
@@ -98,13 +98,14 @@ class Admin_product extends CI_Controller
                         if ($this->upload->do_upload('file'))
                             array_push($product_pictures, $_FILES['file']['name']);
                         else {
-                            $this->upload->display_errors();
+                            var_dump($this->upload->display_errors());
+                            die;
                         }
                     }
                 }
 
-                if ($product_pictures == "") {
-                    $product_pictures = 'default-picture.jpg';
+                if (count($product_pictures) === 0) {
+                    $product_pictures[0] = 'default-picture.jpg';
                 }
                 $data['pictures'] = $product_pictures;
 
