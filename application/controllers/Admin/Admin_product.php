@@ -12,6 +12,7 @@ class Admin_product extends CI_Controller
         $this->load->library('form_validation');
         $this->load->model('User_model', 'User');
         $this->load->model('Product_model', 'Product');
+        $this->load->model('Category_model', 'Category');
     }
 
     public function index()
@@ -63,7 +64,7 @@ class Admin_product extends CI_Controller
                 $data = [
                     'admin' => $admin,
                     'title' => 'Admin - Add Product',
-                    'category' => $this->Product->get_all_category()
+                    'category' => $this->Category->get_all_category()
                 ];
 
                 $this->load->view('layout/admin/header.php', $data);

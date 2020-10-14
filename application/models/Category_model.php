@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
-class Product_model extends CI_Model
+class Category_model extends CI_Model
 {
 
     private $_client;
@@ -12,15 +12,15 @@ class Product_model extends CI_Model
     public function __construct()
     {
         $this->_client = new Client([
-            'base_uri' => 'http://api.thriftporium.id/',
+            'base_uri' => 'http://api.thriftporium.id',
             'auth' => ['dev', '123456'],
         ]);
     }
 
-    public function get_product($value, $type = 'id')
+    public function get_category($value, $type = 'id')
     {
         try {
-            $response = $this->_client->request('GET', 'product', [
+            $response = $this->_client->request('GET', 'product/category', [
                 'query' => [
                     $type => $value,
                 ]
@@ -31,26 +31,26 @@ class Product_model extends CI_Model
 
         $result = json_decode($response->getBody()->getContents(), true);
 
-        return $result['products'][0];
+        return $result['category_product'];
     }
 
-    public function get_all_product()
+    public function get_all_category()
     {
         try {
-            $response = $this->_client->request('GET', 'product');
+            $response = $this->_client->request('GET', 'product/category');
         } catch (\Throwable $e) {
             return null;
         }
 
         $result = json_decode($response->getBody()->getContents(), true);
 
-        return $result['products'];
+        return $result['category_product'];
     }
 
-    public function create_product($data = array())
+    public function create_category($data = array())
     {
         try {
-            $response = $this->_client->request('POST', 'product', [
+            $response = $this->_client->request('POST', 'product/category', [
                 'json' => $data,
             ]);
         } catch (RequestException $e) {
@@ -61,10 +61,24 @@ class Product_model extends CI_Model
         return $result;
     }
 
-    public function delete_product($id)
+    public function edit_category($data = array(), $id)
     {
         try {
-            $response = $this->_client->request('DELETE', 'product/' . $id);
+            $response = $this->_client->request('PUT', 'product/category/' . $id, [
+                'json' => $data,
+            ]);
+        } catch (RequestException $e) {
+            return json_decode($e->getResponse()->getBody()->getContents(), true);
+        }
+
+        $result = json_decode($response->getBody()->getContents(), true);
+        return $result;
+    }
+
+    public function delete_category($id)
+    {
+        try {
+            $response = $this->_client->request('DELETE', 'product/category/' . $id);
         } catch (RequestException $e) {
             return json_decode($e->getResponse()->getBody()->getContents(), true);
         }

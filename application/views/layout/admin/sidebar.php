@@ -63,6 +63,20 @@
         </div>
     </li>
 
+    <!-- Nav Item - Category Collpapse -->
+    <li class="nav-item <?php echo ($this->uri->segment(1) == 'category') ? 'active' : ''; ?>">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategory" aria-expanded="true" aria-controls="collapseCategory">
+            <i class="fas fa-bars"></i>
+            <span>Category</span>
+        </a>
+        <div id="collapseCategory" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="<?php echo site_url(); ?>category">Category List</a>
+                <a class="collapse-item" href="<?php echo site_url(); ?>category/add_category">Add Category</a>
+            </div>
+        </div>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
