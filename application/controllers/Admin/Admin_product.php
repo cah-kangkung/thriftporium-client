@@ -1,4 +1,7 @@
 <?php
+
+use phpDocumentor\Reflection\PseudoTypes\False_;
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Admin_product extends CI_Controller
@@ -26,7 +29,8 @@ class Admin_product extends CI_Controller
 
             $data = [
                 'admin' => $admin,
-                'title' => 'Admin - Product'
+                'title' => 'Admin - Product',
+                'products' => $this->Product->get_all_product(),
             ];
 
             $this->load->view('layout/admin/header.php', $data);
@@ -50,6 +54,7 @@ class Admin_product extends CI_Controller
             $email = $this->session->userdata('user_email');
             $admin = $this->User->get_user($email, 'email');
 
+            $this->form_validation->set_rules('images[]', 'Product Images', 'callback_validate_images');
             $this->form_validation->set_rules('name', 'Product Name', 'required|trim');
             $this->form_validation->set_rules('description', 'Product Description', 'required|trim');
             $this->form_validation->set_rules('price', 'Price', 'required|trim|integer');
@@ -78,46 +83,86 @@ class Admin_product extends CI_Controller
                 // setting config for file uploading
                 $config['allowed_types']    = 'jpg|png|jpeg';
                 $config['max_size']         = 2058;
-                $config['encrypt_name']     = true;
-                $config['upload_path']      = FCPATH . 'assets/img/product/';
+                $config['encrypt_name']     = TRUE;
+                $config['upload_path']      = FCPATH . 'upload/product-images';
+                $config['multi']      = 'all';
 
                 $this->load->library('upload', $config);
 
-                $product_pictures = array(); // for inserting to db
-                $total_image = count($_FILES['pictures']['name']);
-                for ($i = 0; $i < $total_image; $i++) {
+                // $product_images = array(); // for inserting to db
+                // $total_images = ($_FILES['images']['name'][0] == "") ? 0 : count($_FILES['images']['name']);
+                // for ($i = 0; $i < $total_images; $i++) {
 
-                    if (!empty($_FILES['pictures']['name'][$i])) {
+                //     if (!empty($_FILES['images']['name'][$i])) {
 
-                        $_FILES['file']['name'] = $_FILES['pictures']['name'][$i];
-                        $_FILES['file']['type'] = $_FILES['pictures']['type'][$i];
-                        $_FILES['file']['tmp_name'] = $_FILES['pictures']['tmp_name'][$i];
-                        $_FILES['file']['error'] = $_FILES['pictures']['error'][$i];
-                        $_FILES['file']['size'] = $_FILES['pictures']['size'][$i];
+                //         $_FILES['file']['name'] = $_FILES['images']['name'][$i];
+                //         $_FILES['file']['type'] = $_FILES['images']['type'][$i];
+                //         $_FILES['file']['tmp_name'] = $_FILES['images']['tmp_name'][$i];
+                //         $_FILES['file']['error'] = $_FILES['images']['error'][$i];
+                //         $_FILES['file']['size'] = $_FILES['images']['size'][$i];
 
-                        if ($this->upload->do_upload('file'))
-                            array_push($product_pictures, $_FILES['file']['name']);
-                        else {
-                            var_dump($this->upload->display_errors());
-                            die;
-                        }
+                //         if ($this->upload->do_upload('file')) {
+                //             $file_name = $this->upload->data('file_name');
+                //             array_push($product_images, $file_name);
+                //         } else {
+                //             $this->session->set_flashdata('danger_alert', 'Upload failed: ' . $this->upload->display_errors());
+                //             redirect('admin_product');
+                //         }
+                //     }
+                // }
+
+                $product_images = array(); // for inserting to db
+                if ($this->upload->do_upload('images')) {
+                    $uploaded_products = $this->upload->data();
+                    $total_file = count($uploaded_products);
+                    for ($i = 0; $i < $total_file; $i++) {
+                        $file_name = $uploaded_products[$i]['file_name'];
+                        array_push($product_images, $file_name);
                     }
+                } else {
+                    $error = $this->upload->display_errors('', '');
+                    $this->session->set_flashdata('danger_alert', 'Upload failed: ' . $error);
+                    redirect('admin_product');
                 }
 
-                if (count($product_pictures) === 0) {
-                    $product_pictures[0] = 'default-picture.jpg';
-                }
-                $data['pictures'] = $product_pictures;
+                $data['pictures'] = $product_images;
 
-                $result = $this->Product->create_product($data);
-                if ($result['code'] != 200) {
-                    var_dump($result);
-                    die;
+                $response = $this->Product->create_product($data);
+                if ($response['code'] != 200) {
+                    $this->session->set_flashdata('danger_alert', 'Upload failed: ' . $response['message']);
+                    redirect('admin_product');
+                } else {
+                    $this->session->set_flashdata('success_alert', 'Product has been added');
+                    redirect('admin_product');
                 }
-
-                $this->session->set_flashdata('success_alert', 'Product has been added');
-                redirect('admin_product');
             }
+        }
+    }
+
+    public function validate_images()
+    {
+        $total_images = ($_FILES['images']['name'][0] == "") ? 0 : count($_FILES['images']['name']);
+
+        if ($total_images < 2) {
+            $this->form_validation->set_message('validate_images', 'You must upload atleast 2 image');
+            return FALSE;
+        } elseif ($total_images > 5) {
+            $this->form_validation->set_message('validate_images', 'You can only upload up to 5 images.');
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+
+    public function delete_product($id)
+    {
+        $response = $this->Product->delete_product($id);
+        if ($response['code'] != 200) {
+            $this->session->set_flashdata('danger_alert', 'Delete failed: ' . $response['message']);
+            redirect('admin_product');
+        } else {
+            $this->session->set_flashdata('success_alert', 'Product has been deleted');
+            redirect('admin_product');
         }
     }
 }

@@ -1,11 +1,15 @@
 <script>
     const previewImage = function() {
-        let total_file = document.getElementById("pictures").files.length;
+        $('#imagePreview').html('');
+        let total_file = document.getElementById('images').files.length;
         for (let i = 0; i < total_file; i++) {
             const template = document.createElement('div');
-            template.classList.add('col-sm-3');
-            template.innerHTML = `<div class="card">
-                                    <img class="card-img-top" src="" alt="Card image cap">
+            template.classList.add('col-xl-3');
+            template.classList.add('col-lg-4');
+            template.classList.add('col-md-6');
+            template.classList.add('mb-4');
+            template.innerHTML = `<div class="card" style="width: 200px; height: 200px;">
+                                    <img class="card-img-top" style="height: 100%; width: 100%; object-fit: contain;" src="" alt="Product images">
                                 </div>`;
             const img = template.querySelector('img');
             img.src = URL.createObjectURL(event.target.files[i]);
@@ -14,6 +18,11 @@
             }
             $('#imagePreview').append(template);
         }
+    };
+
+    const clearFileInput = function() {
+        document.getElementById('images').value = '';
+        $('#imagePreview').html('');
     };
 </script>
 
@@ -34,13 +43,17 @@
                 <!-- Uplaod Picture -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Product Upload</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Product Upload <span class="badge badge-pill badge-info">required</span></h6>
+                        <small>Image format .jpg .jpeg .png and maximun file size is 2 Mb each (else it will not get uploaded)</small>
                     </div>
                     <div class="card-body">
-                        <input type="file" id="pictures" class="<?php echo (form_error('pictures[]')) ? 'is-invalid' : ''; ?>" name="pictures[]" onchange="previewImage();" multiple />
+                        <input type="file" id="images" class="mb-3 <?php echo (form_error('images[]')) ? 'is-invalid' : ''; ?>" name="images[]" onchange="previewImage();" multiple />
+                        <span style="cursor: pointer;" onclick="clearFileInput()">
+                            <i class="fas fa-times"></i> Cancel
+                        </span>
                         <div id="imagePreview" class="row mt-4"></div>
                         <div class="invalid-feedback">
-                            <?php echo form_error('pictures[]', '<div class="pl-2">', '</div>'); ?>
+                            <?php echo form_error('images[]', '<div class="pl-2">', '</div>'); ?>
                         </div>
                     </div>
                 </div>
@@ -51,16 +64,16 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
-                            <label for="name" class="col-sm-4 col-form-label">Product Name</label>
+                            <label for="name" class="col-sm-4 col-form-label">Product Name <span class="badge badge-pill badge-info">required</span></label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control <?php echo (form_error('name')) ? 'is-invalid' : ''; ?>" name="name" id="name" value="<?php echo set_value('email'); ?>" placeholder="Product Name">
+                                <input type="text" class="form-control <?php echo (form_error('name')) ? 'is-invalid' : ''; ?>" name="name" id="name" value="<?php echo set_value('name'); ?>" placeholder="Product Name">
                                 <div class="invalid-feedback">
                                     <?php echo form_error('name', '<div class="pl-2">', '</div>'); ?>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="category_id" class="col-sm-4 col-form-label">Category</label>
+                            <label for="category_id" class="col-sm-4 col-form-label">Category <span class="badge badge-pill badge-info">required</span></label>
                             <div class="col-sm-8">
                                 <select class="form-control" name="category_id" id="category_id">
                                     <?php foreach ($category as $c) : ?>
@@ -70,7 +83,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="description" class="col-sm-4 col-form-label">Product Description</label>
+                            <label for="description" class="col-sm-4 col-form-label">Product Description <span class="badge badge-pill badge-info">required</span></label>
                             <div class="col-sm-8">
                                 <textarea class="form-control <?php echo (form_error('description')) ? 'is-invalid' : ''; ?>" name="description" id="description" rows="5"><?php echo set_value('description'); ?></textarea>
                                 <div class="invalid-feedback">
@@ -87,7 +100,7 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
-                            <label for="price" class="col-sm-4 col-form-label">Price</label>
+                            <label for="price" class="col-sm-4 col-form-label">Price <span class="badge badge-pill badge-info">required</span></label>
                             <div class="col-sm-8">
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend">
@@ -101,7 +114,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="stock" class="col-sm-4 col-form-label">Stock</label>
+                            <label for="stock" class="col-sm-4 col-form-label">Stock <span class="badge badge-pill badge-info">required</span></label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control <?php echo (form_error('stock')) ? 'is-invalid' : ''; ?>" name="stock" id="stock" placeholder="Enter Stock" value="<?php echo set_value('stock'); ?>">
                                 <div class="invalid-feedback">

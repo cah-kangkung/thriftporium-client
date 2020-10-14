@@ -52,7 +52,7 @@
     <!-- Nav Item - Product Collpapse -->
     <li class="nav-item <?php echo ($this->uri->segment(1) == 'admin_product' ? 'active' : ''); ?>">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProduct" aria-expanded="true" aria-controls="collapseProduct">
-            <i class="fas fa-fw fa-question"></i>
+            <i class="fas fa-tshirt"></i>
             <span>Product</span>
         </a>
         <div id="collapseProduct" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">

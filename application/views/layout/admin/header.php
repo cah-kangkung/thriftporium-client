@@ -21,6 +21,8 @@
     <!-- Custom styles datables -->
     <link href="<?php echo base_url(); ?>assets/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+    <link href="<?php echo base_url(); ?>assets/css/custom-style.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">

@@ -61,6 +61,18 @@ class Product_model extends CI_Model
         return $result;
     }
 
+    public function delete_product($id)
+    {
+        try {
+            $response = $this->_client->request('DELETE', 'product/' . $id);
+        } catch (RequestException $e) {
+            return json_decode($e->getResponse()->getBody()->getContents(), true);
+        }
+
+        $result = json_decode($response->getBody()->getContents(), true);
+        return $result;
+    }
+
     public function get_all_category()
     {
         try {

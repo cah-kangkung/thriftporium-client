@@ -60,18 +60,6 @@ class User_model extends CI_Model
         return $result;
     }
 
-    public function delete_user($id)
-    {
-        try {
-            $response = $this->_client->request('DELETE', 'user/' . $id);
-        } catch (RequestException $e) {
-            return json_decode($e->getResponse()->getBody()->getContents(), true);
-        }
-
-        $result = json_decode($response->getBody()->getContents(), true);
-        return $result;
-    }
-
     public function update_user($data = array(), $id)
     {
         try {
