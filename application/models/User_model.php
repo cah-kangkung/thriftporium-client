@@ -31,7 +31,7 @@ class User_model extends CI_Model
 
         $result = json_decode($response->getBody()->getContents(), true);
 
-        return $result['users'][0];
+        return $result['data'][0];
     }
 
     public function get_all_user()
@@ -43,7 +43,7 @@ class User_model extends CI_Model
         }
 
         $result = json_decode($response->getBody()->getContents(), true);
-        return $result['users'];
+        return $result['data'];
     }
 
     public function create_user($data = array())

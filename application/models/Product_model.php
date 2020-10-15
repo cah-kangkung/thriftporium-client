@@ -31,7 +31,7 @@ class Product_model extends CI_Model
 
         $result = json_decode($response->getBody()->getContents(), true);
 
-        return $result['products'][0];
+        return $result['data'];
     }
 
     public function get_all_product()
@@ -44,7 +44,7 @@ class Product_model extends CI_Model
 
         $result = json_decode($response->getBody()->getContents(), true);
 
-        return $result['products'];
+        return $result['data'];
     }
 
     public function create_product($data = array())

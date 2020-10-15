@@ -123,15 +123,15 @@ class Admin_product extends CI_Controller
                 } else {
                     $error = $this->upload->display_errors('', '');
                     $this->session->set_flashdata('danger_alert', 'Upload failed: ' . $error);
-                    redirect('admin_product');
+                    redirect('admin_product/add_product');
                 }
 
                 $data['pictures'] = $product_images;
 
                 $response = $this->Product->create_product($data);
                 if ($response['code'] != 200) {
-                    $this->session->set_flashdata('danger_alert', 'Upload failed: ' . $response['message']);
-                    redirect('admin_product');
+                    $this->session->set_flashdata('danger_alert', 'Upload failed: ' . $response['message'] . "->" . $response['error_details']);
+                    redirect('admin_product/add_product');
                 } else {
                     $this->session->set_flashdata('success_alert', 'Product has been added');
                     redirect('admin_product');
@@ -157,9 +157,14 @@ class Admin_product extends CI_Controller
 
     public function delete_product($id)
     {
+        $product_images = $this->Product->get_product($id)['product_pictures'];
+        foreach ($product_images as $product_image) {
+            unlink(FCPATH . 'upload/product-images/' . $product_image);
+        }
+
         $response = $this->Product->delete_product($id);
         if ($response['code'] != 200) {
-            $this->session->set_flashdata('danger_alert', 'Delete failed: ' . $response['message']);
+            $this->session->set_flashdata('danger_alert', 'Delete failed: ' . $response['message'] . "->" . $response['error_detail']);
             redirect('admin_product');
         } else {
             $this->session->set_flashdata('success_alert', 'Product has been deleted');

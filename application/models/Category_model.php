@@ -31,7 +31,7 @@ class Category_model extends CI_Model
 
         $result = json_decode($response->getBody()->getContents(), true);
 
-        return $result['category_product'];
+        return $result['data'];
     }
 
     public function get_all_category()
@@ -44,7 +44,7 @@ class Category_model extends CI_Model
 
         $result = json_decode($response->getBody()->getContents(), true);
 
-        return $result['category_product'];
+        return $result['data'];
     }
 
     public function create_category($data = array())

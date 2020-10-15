@@ -35,6 +35,20 @@
         <!-- <a href="<?php echo site_url(); ?>admin_report" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Cetak Laporan</a> -->
     </div>
 
+    <?php if ($this->session->flashdata('danger_alert')) : ?>
+        <div class="alert alert-dismissible alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <?php echo $this->session->flashdata('danger_alert'); ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($this->session->flashdata('success_alert')) : ?>
+        <div class="alert alert-dismissible alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <?php echo $this->session->flashdata('success_alert'); ?>
+        </div>
+    <?php endif; ?>
+
     <div class="row">
         <div class="col-lg-10">
 

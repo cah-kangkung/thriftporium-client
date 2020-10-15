@@ -134,7 +134,7 @@ class Admin_category extends CI_Controller
     {
         $response = $this->Category->delete_category($id);
         if ($response['code'] != 200) {
-            $this->session->set_flashdata('danger_alert', 'Delete failed: ' . $response['message']);
+            $this->session->set_flashdata('danger_alert', 'Delete failed: ' . $response['message'] . '->' . $response['error_detail']);
             redirect('category');
         } else {
             $this->session->set_flashdata('success_alert', 'Category has been deleted');
