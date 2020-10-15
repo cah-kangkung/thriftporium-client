@@ -29,7 +29,7 @@
 
     <!-- Nav Item - My Profile -->
     <li class="nav-item <?php echo ($this->uri->segment(2) == 'profile' ? 'active' : ''); ?>">
-        <a class="nav-link" href="<?php echo site_url(); ?>admin_user/profile">
+        <a class="nav-link" href="<?php echo site_url(); ?>admin_profile">
             <i class="fas fa-fw fa-user"></i>
             <span>My Profile</span></a>
     </li>
