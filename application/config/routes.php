@@ -58,6 +58,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['admin_dashboard'] = 'admin/admin_dashboard';
 $route['admin_product'] = 'admin/admin_product';
 $route['admin_product/add_product'] = 'admin/admin_product/add_product';
+$route['admin_product/edit_product/(:num)'] = 'admin/admin_product/edit_product/$1';
 $route['admin_product/delete_product/(:num)'] = 'admin/admin_product/delete_product/$1';
 $route['category'] = 'admin/admin_category';
 $route['category/add_category'] = 'admin/admin_category/add_category';

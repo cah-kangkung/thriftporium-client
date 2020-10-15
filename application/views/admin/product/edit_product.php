@@ -31,7 +31,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Add Product</h1>
+        <h1 class="h3 mb-0 text-gray-800">Edit Product</h1>
         <!-- <a href="<?php echo site_url(); ?>admin_report" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Cetak Laporan</a> -->
     </div>
 
@@ -52,7 +52,7 @@
     <div class="row">
         <div class="col-lg-10">
 
-            <form action="<?php echo site_url(); ?>admin_product/add_product" method="post" enctype="multipart/form-data">
+            <form action="<?php echo site_url(); ?>admin_product/edit_product/<?php echo $product['id']; ?>" method="post" enctype="multipart/form-data">
 
                 <!-- Uplaod Picture -->
                 <div class="card shadow mb-4">
@@ -65,7 +65,17 @@
                         <span style="cursor: pointer;" onclick="clearFileInput()">
                             <i class="fas fa-times"></i> Cancel
                         </span>
-                        <div id="imagePreview" class="row mt-4"></div>
+                        <div id="imagePreview" class="row mt-4">
+
+                            <?php foreach ($product['product_pictures'] as $picture) : ?>
+                                <div class="col-xl-3 col-lg-4 col-md-6">
+                                    <div class="card" style="width: 200px; height: 200px;">
+                                        <img class="card-img-top" style="height: 100%; width: 100%; object-fit: contain;" src="<?php echo base_url(); ?>upload/product-images/<?php echo $picture; ?>" alt="Product images">
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+
+                        </div>
                         <div class="invalid-feedback">
                             <?php echo form_error('images[]', '<div class="pl-2">', '</div>'); ?>
                         </div>
@@ -80,7 +90,7 @@
                         <div class="form-group row">
                             <label for="name" class="col-sm-4 col-form-label">Product Name <span class="badge badge-pill badge-info">required</span></label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control <?php echo (form_error('name')) ? 'is-invalid' : ''; ?>" name="name" id="name" value="<?php echo set_value('name'); ?>" placeholder="Example: Manfi Putih">
+                                <input type="text" class="form-control <?php echo (form_error('name')) ? 'is-invalid' : ''; ?>" name="name" id="name" value="<?php echo $product['product_name']; ?>" placeholder="Product Name">
                                 <div class="invalid-feedback">
                                     <?php echo form_error('name', '<div class="pl-2">', '</div>'); ?>
                                 </div>
@@ -90,6 +100,7 @@
                             <label for="category_id" class="col-sm-4 col-form-label">Category <span class="badge badge-pill badge-info">required</span></label>
                             <div class="col-sm-8">
                                 <select class="form-control" name="category_id" id="category_id">
+                                    <option value="<?php echo $product['category_id']; ?>"><?php echo $product['category_name']; ?></option>
                                     <?php foreach ($category as $c) : ?>
                                         <option value="<?php echo $c['id']; ?>"><?php echo $c['category_name']; ?></option>
                                     <?php endforeach; ?>
@@ -99,7 +110,7 @@
                         <div class="form-group row">
                             <label for="description" class="col-sm-4 col-form-label">Product Description <span class="badge badge-pill badge-info">required</span></label>
                             <div class="col-sm-8">
-                                <textarea class="form-control <?php echo (form_error('description')) ? 'is-invalid' : ''; ?>" name="description" id="description" rows="5"><?php echo set_value('description'); ?></textarea>
+                                <textarea class="form-control <?php echo (form_error('description')) ? 'is-invalid' : ''; ?>" name="description" id="description" rows="5"><?php echo $product['product_description']; ?></textarea>
                                 <div class="invalid-feedback">
                                     <?php echo form_error('description', '<div class="pl-2">', '</div>'); ?>
                                 </div>
@@ -120,7 +131,7 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">Rp</div>
                                     </div>
-                                    <input type="text" class="form-control <?php echo (form_error('price')) ? 'is-invalid' : ''; ?>" name="price" id="price" placeholder="Enter Price (ex. 80000)" value="<?php echo set_value('price'); ?>">
+                                    <input type="text" class="form-control <?php echo (form_error('price')) ? 'is-invalid' : ''; ?>" name="price" id="price" placeholder="Enter Price" value="<?php echo $product['product_price']; ?>">
                                     <div class="invalid-feedback">
                                         <?php echo form_error('price', '<div class="pl-2">', '</div>'); ?>
                                     </div>
@@ -130,9 +141,18 @@
                         <div class="form-group row">
                             <label for="stock" class="col-sm-4 col-form-label">Stock <span class="badge badge-pill badge-info">required</span></label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control <?php echo (form_error('stock')) ? 'is-invalid' : ''; ?>" name="stock" id="stock" placeholder="Enter Stock. minumun stock: 1" value="<?php echo set_value('stock'); ?>">
+                                <input type="text" class="form-control <?php echo (form_error('stock')) ? 'is-invalid' : ''; ?>" name="stock" id="stock" placeholder="Enter Stock" value="<?php echo $product['product_stock']; ?>">
                                 <div class="invalid-feedback">
                                     <?php echo form_error('stock', '<div class="pl-2">', '</div>'); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="availability" class="col-sm-4 col-form-label">Availability</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control <?php echo (form_error('availability')) ? 'is-invalid' : ''; ?>" name="availability" id="availability" placeholder="Enter availability" value="<?php echo $product['product_availability']; ?>" readonly>
+                                <div class="invalid-feedback">
+                                    <?php echo form_error('availability', '<div class="pl-2">', '</div>'); ?>
                                 </div>
                             </div>
                         </div>

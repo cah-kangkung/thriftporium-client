@@ -34,6 +34,8 @@
                             <th>Category</th>
                             <th>Price</th>
                             <th>Stock</th>
+                            <th>Availability</th>
+                            <th>Sold</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -45,11 +47,13 @@
                                 <td><?php echo $i; ?></td>
                                 <td><?php echo $product['product_name']; ?></td>
                                 <td><?php echo $product['category_name']; ?></td>
-                                <td><?php echo $product['product_price']; ?></td>
+                                <td><?php echo "Rp " . ($product['product_price'] / 1000) . ",000"; ?></td>
                                 <td><?php echo $product['product_stock']; ?></td>
+                                <td><?php echo $product['product_availability']; ?></td>
+                                <td><?php echo $product['product_stock'] - $product['product_availability']; ?></td>
                                 <td><?php echo ($product['product_status_detail']); ?></td>
                                 <td>
-                                    <a href="" class="badge badge-info p-1">Edit</a>
+                                    <a href="<?php echo site_url(); ?>admin_product/edit_product/<?php echo $product['id']; ?>" class="badge badge-info p-1">Edit</a>
                                     <a href="<?php echo site_url(); ?>admin_product/delete_product/<?php echo $product['id']; ?>" class="badge badge-danger p-1" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
                                 </td>
                             </tr>
