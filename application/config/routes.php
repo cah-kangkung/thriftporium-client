@@ -60,6 +60,7 @@ $route['admin_product'] = 'admin/admin_product';
 $route['admin_product/add_product'] = 'admin/admin_product/add_product';
 $route['admin_product/edit_product/(:num)'] = 'admin/admin_product/edit_product/$1';
 $route['admin_product/delete_product/(:num)'] = 'admin/admin_product/delete_product/$1';
+$route['admin_product/toggle_status/(:any)/(:num)'] = 'admin/admin_product/toggle_status/$1/$2';
 $route['category'] = 'admin/admin_category';
 $route['category/add_category'] = 'admin/admin_category/add_category';
 $route['category/edit_category/(:num)'] = 'admin/admin_category/edit_category/$1';

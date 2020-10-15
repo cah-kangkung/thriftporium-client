@@ -86,4 +86,16 @@ class Product_model extends CI_Model
         $result = json_decode($response->getBody()->getContents(), true);
         return $result;
     }
+
+    public function toggle_status($status, $id)
+    {
+        try {
+            $response = $this->_client->request('PUT', 'product/' . $status . '/' . $id);
+        } catch (RequestException $e) {
+            return json_decode($e->getResponse()->getBody()->getContents(), true);
+        }
+
+        $result = json_decode($response->getBody()->getContents(), true);
+        return $result;
+    }
 }

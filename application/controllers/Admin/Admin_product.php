@@ -284,4 +284,16 @@ class Admin_product extends CI_Controller
             redirect('admin_product');
         }
     }
+
+    public function toggle_status($status, $id)
+    {
+        $response = $this->Product->toggle_status($status, $id);
+        if ($response['code'] != 200) {
+            $this->session->set_flashdata('danger_alert', 'Delete failed: ' . $response['message'] . " -> " . $response['error_detail']);
+            redirect('admin_product');
+        } else {
+            $this->session->set_flashdata('success_alert', 'Product has been ' . $status . 'ed');
+            redirect('admin_product');
+        }
+    }
 }

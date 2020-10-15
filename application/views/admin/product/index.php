@@ -54,6 +54,11 @@
                                 <td><?php echo ($product['product_status_detail']); ?></td>
                                 <td>
                                     <a href="<?php echo site_url(); ?>admin_product/edit_product/<?php echo $product['id']; ?>" class="badge badge-info p-1">Edit</a>
+                                    <?php if ($product['product_status_detail'] == 'UNPUBLISH') : ?>
+                                        <a href="<?php echo site_url(); ?>admin_product/toggle_status/publish/<?php echo $product['id']; ?>" class="badge badge-warning p-1">Publish</a>
+                                    <?php elseif ($product['product_status_detail'] == 'PUBLISH') : ?>
+                                        <a href="<?php echo site_url(); ?>admin_product/toggle_status/unpublish/<?php echo $product['id']; ?>" class="badge badge-warning p-1">Unpublish</a>
+                                    <?php endif; ?>
                                     <a href="<?php echo site_url(); ?>admin_product/delete_product/<?php echo $product['id']; ?>" class="badge badge-danger p-1" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
                                 </td>
                             </tr>
