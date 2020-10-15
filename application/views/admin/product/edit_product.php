@@ -58,7 +58,7 @@
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Product Upload <span class="badge badge-pill badge-info">required</span></h6>
-                        <small>Image format .jpg .jpeg .png and maximun file size is 2 Mb each (else it will not get uploaded)</small>
+                        <small>Image format: .jpg .jpeg .png; Minimum upload: 2; Maximum file size for each image: 2MB</small>
                     </div>
                     <div class="card-body">
                         <input type="file" id="images" class="mb-3 <?php echo (form_error('images[]')) ? 'is-invalid' : ''; ?>" name="images[]" onchange="previewImage();" multiple />
@@ -154,6 +154,25 @@
                                 <div class="invalid-feedback">
                                     <?php echo form_error('availability', '<div class="pl-2">', '</div>'); ?>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Status -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Status</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="price" class="col-sm-4 col-form-label">Status</label>
+                            <div class="col-sm-8">
+                                <?php echo $product['product_status_detail']; ?>
+                                <?php if ($product['product_status_detail'] == 'UNPUBLISH') : ?>
+                                    <a href="<?php echo site_url(); ?>admin_product/toggle_status/publish/<?php echo $product['id']; ?>" class="btn btn-warning ml-3">Publish</a>
+                                <?php elseif ($product['product_status_detail'] == 'PUBLISH') : ?>
+                                    <a href="<?php echo site_url(); ?>admin_product/toggle_status/unpublish/<?php echo $product['id']; ?>" class="btn btn-warning ml-3">Unpublish</a>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

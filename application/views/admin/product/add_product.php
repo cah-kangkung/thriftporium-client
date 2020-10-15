@@ -58,7 +58,7 @@
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Product Upload <span class="badge badge-pill badge-info">required</span></h6>
-                        <small>Image format .jpg .jpeg .png and maximun file size is 2 Mb each (else it will not get uploaded)</small>
+                        <small>Image format: .jpg .jpeg .png; Minimum upload: 2; Maximum file size for each image: 2MB</small>
                     </div>
                     <div class="card-body">
                         <input type="file" id="images" class="mb-3 <?php echo (form_error('images[]')) ? 'is-invalid' : ''; ?>" name="images[]" onchange="previewImage();" multiple />
