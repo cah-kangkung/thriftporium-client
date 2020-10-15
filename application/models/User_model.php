@@ -73,4 +73,18 @@ class User_model extends CI_Model
         $result = json_decode($response->getBody()->getContents(), true);
         return $result;
     }
+
+    public function change_password($data = array(), $id)
+    {
+        try {
+            $response = $this->_client->request('PUT', 'user/password/' . $id, [
+                'json' => $data,
+            ]);
+        } catch (RequestException $e) {
+            return json_decode($e->getResponse()->getBody()->getContents(), true);
+        }
+
+        $result = json_decode($response->getBody()->getContents(), true);
+        return $result;
+    }
 }
