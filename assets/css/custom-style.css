@@ -3,3 +3,60 @@
 	background-position: center;
 	background-size: cover;
 }
+
+/* Topbar Navbar */
+.top-bar {
+	display: flex;
+	align-items: center;
+	padding: 0.5em 1.7em 0 1.7em;
+}
+
+.logged-in-dropdown,
+.logged-in-dropdown > img {
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+bg-transparant {
+	background-color: transparent;
+}
+bg-white {
+	background-color: white;
+}
+
+.navbar {
+	padding-top: 0;
+}
+
+.navbar-light .navbar-nav .nav-link {
+	font-weight: 500;
+	color: rgba(0, 0, 0, 1);
+}
+
+.navbar-toggler {
+	width: 100%;
+}
+
+/* Main Content */
+.carousel {
+	box-shadow: unset;
+}
+
+.carousel-inner {
+	height: 650px;
+}
+
+@media (max-width: 575.98px) {
+	.navbar {
+		padding-top: 0.75rem;
+	}
+
+	.form-inline {
+		display: none;
+	}
+
+	.logged-in-dropdown,
+	login-button {
+		margin-left: auto !important;
+	}
+}

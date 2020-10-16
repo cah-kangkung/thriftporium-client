@@ -134,7 +134,7 @@ class Auth extends CI_Controller
         $this->session->unset_userdata('logged_in');
 
         $this->session->set_flashdata('success_alert', 'Anda telah keluar!');
-        redirect('auth');
+        redirect('home');
     }
 
     public function access_blocked()
