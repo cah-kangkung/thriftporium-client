@@ -8,6 +8,9 @@ class Auth extends CI_Controller
         parent::__construct();
         $this->load->library('form_validation');
         $this->load->model('User_model', 'User');
+
+        // load google library
+        $this->load->library("google");
     }
 
     public function index()
@@ -23,6 +26,7 @@ class Auth extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $data = [
                 'title' => 'Thriftporium - Login',
+                "google_url" => $this->google->getURL()
             ];
             $this->load->view('layout/header', $data);
             $this->load->view('auth/login');
@@ -92,6 +96,7 @@ class Auth extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $data = [
                 'title' => 'Thriftporium - Register',
+                "google_url" => $this->google->getURL()
             ];
             $this->load->view('layout/header', $data);
             $this->load->view('auth/register');
@@ -126,9 +131,80 @@ class Auth extends CI_Controller
         }
     }
 
+    public function google()
+    {
+        if ($this->session->userdata('logged_in')) {
+            show_404();
+        }
+
+        if (isset($_GET['code'])) {
+            $token = $this->google->setAuthenticate($_GET['code']);
+            $this->google->setAccessToken($token['access_token']);
+            // $google_oauth = new Google_Service_Oauth2($this->client);
+            $google_account_info = $this->google->getUserInfo();
+            $data = [
+                "first_name" => $google_account_info["given_name"],
+                "last_name" => $google_account_info["family_name"],
+                "email" => $google_account_info["email"],
+                "uid" => $google_account_info["id"],
+                "provider" => "google",
+                "role" => 2001
+            ];
+            // var_dump($data);
+            // die;
+            $result_get = $this->User->get_user_socmed($data["uid"], $data["provider"]);
+            // var_dump($result_get);
+            // die;
+            if ($result_get === null) {
+                $result_post = $this->User->add_user_socmed($data);
+                if ($result_post["code"] === 200) {
+                    $this->session->set_flashdata('success_alert', 'Google has been registered, please login!!');
+                    redirect('auth');
+                } elseif ($result_post["code"] === 400) {
+                    if (!isset($result_post["error_detail"])) {
+                        $this->session->set_flashdata('danger_alert', $result_post["message"]);
+                        redirect('auth');
+                    }
+                    var_dump($result_post);
+                    die;
+                } else {
+                    var_dump($result_post);
+                    die;
+                }
+            } else {
+                // $this->session->set_flashdata('danger_alert', 'Google has been registered, please login!!');
+                // redirect('auth');
+                // var_dump($result_get);
+                // die;
+                if ($result_get['user_status'] == 1) {
+                    $session = [
+                        'user_email' => $result_get['user_email'],
+                        'user_role' => $result_get['role_id'],
+                        'logged_in' => TRUE,
+                        'google_token' => $token['access_token']
+                    ];
+                    if ($result_get['role_id'] == 2001) {
+                        $this->session->set_userdata($session);
+                        redirect('home/');
+                    } else {
+                        var_dump("bukan user tolol");
+                        die;
+                    }
+                } else {
+                    $this->session->set_flashdata('danger_alert', 'Email has not been activated');
+                    redirect('auth');
+                }
+            }
+        }
+    }
+
     public function logout()
     {
         // Remove token and user data from the session
+        if ($this->session->userdata('google_token') !== null) {
+            $this->google->revokeToken($this->session->userdata('google_token'));
+            $this->session->unset_userdata('google_token');
+        }
         $this->session->unset_userdata('user_email');
         $this->session->unset_userdata('user_role');
         $this->session->unset_userdata('logged_in');

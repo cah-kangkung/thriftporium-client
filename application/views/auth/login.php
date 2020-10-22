@@ -55,6 +55,8 @@
                                             Facebook
                                         </a> -->
                                 </form>
+                                <br>
+                                <a href="<?php echo $google_url; ?>">Login With Google</a>
                                 <hr />
                                 <div class="text-center">
                                     <a class="small" href="forgot-password.html">Forgot Password?</a>

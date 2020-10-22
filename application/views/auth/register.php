@@ -56,6 +56,8 @@
                                 <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
                             </a> -->
                         </form>
+                        <br>
+                        <a href="<?php echo $google_url; ?>">google register</a>
                         <hr>
                         <div class="text-center">
                             <a class="small" href="forgot-password.html">Forgot Password?</a>
