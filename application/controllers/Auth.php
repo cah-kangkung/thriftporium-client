@@ -24,9 +24,7 @@ class Auth extends CI_Controller
             $data = [
                 'title' => 'Thriftporium - Login',
             ];
-            $this->load->view('layout/header', $data);
-            $this->load->view('auth/login');
-            $this->load->view('layout/footer');
+            $this->load->view('auth/login', $data);
         } else {
             $this->_login();
         }
@@ -93,9 +91,7 @@ class Auth extends CI_Controller
             $data = [
                 'title' => 'Thriftporium - Register',
             ];
-            $this->load->view('layout/header', $data);
-            $this->load->view('auth/register');
-            $this->load->view('layout/footer');
+            $this->load->view('auth/register', $data);
         } else {
             $email = $this->input->post('email', true);
             $data = [

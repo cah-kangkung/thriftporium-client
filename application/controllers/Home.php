@@ -10,6 +10,7 @@ class Home extends CI_Controller
         $this->load->library('form_validation');
         $this->load->model('User_model', 'User');
         $this->load->model('Category_model', 'Category');
+        $this->load->model('Product_model', 'Product');
     }
 
     public function index()
@@ -22,8 +23,11 @@ class Home extends CI_Controller
             'user' => $user,
             'title' => 'Thriftporium - Home',
             'category' => $this->Category->get_all_category(),
+            'products' => $this->Product->get_all_product(),
         ];
 
-        $this->load->view('home/index', $data);
+        $this->load->view('layout/header', $data);
+        $this->load->view('home/index');
+        $this->load->view('layout/footer');
     }
 }

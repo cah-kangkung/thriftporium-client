@@ -33,6 +33,7 @@
                             <th>Name</th>
                             <th>Category</th>
                             <th>Price</th>
+                            <th>Weight</th>
                             <th>Stock</th>
                             <th>Availability</th>
                             <th>Sold</th>
@@ -48,6 +49,7 @@
                                 <td><?php echo $product['product_name']; ?></td>
                                 <td><?php echo $product['category_name']; ?></td>
                                 <td><?php echo "Rp " . ($product['product_price'] / 1000) . ",000"; ?></td>
+                                <td><?php echo $product['product_weight']; ?> gr</td>
                                 <td><?php echo $product['product_stock']; ?></td>
                                 <td><?php echo $product['product_availability']; ?></td>
                                 <td><?php echo $product['product_stock'] - $product['product_availability']; ?></td>

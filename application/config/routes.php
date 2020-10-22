@@ -69,3 +69,6 @@ $route['category'] = 'admin/admin_category';
 $route['category/add_category'] = 'admin/admin_category/add_category';
 $route['category/edit_category/(:num)'] = 'admin/admin_category/edit_category/$1';
 $route['category/delete_category/(:num)'] = 'admin/admin_category/delete_category/$1';
+
+$route['products'] = 'products/products';
+$route['products/(:num)'] = 'products/products/$1';

@@ -1,38 +1,73 @@
+/* body {
+	background-color: #fafafa;
+} */
+
+section {
+	margin: 5em 0;
+}
+
+@media (min-width: 1200px) {
+	.container,
+	.container-lg,
+	.container-md,
+	.container-sm,
+	.container-xl {
+		max-width: 1060px;
+	}
+}
+
+p.fw-400 {
+	font-weight: 400;
+}
+
 .bg-auth-image {
 	background: url("../img/bg/bg-login.jpg");
 	background-position: center;
 	background-size: cover;
 }
 
+bg-transparant {
+	background-color: transparent;
+}
+
+bg-white {
+	background-color: white;
+}
+
+/* Removing arrow in input[type="number"] */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+/* Firefox */
+input[type="number"] {
+	-moz-appearance: textfield;
+}
+
 /* Topbar Navbar */
+/* .top-bar,
+.navbar {
+	background-color: #fafafa;
+} */
 .top-bar {
 	display: flex;
 	align-items: center;
 	padding: 0.5em 1.7em 0 1.7em;
 }
-
 .logged-in-dropdown,
 .logged-in-dropdown > img {
 	border-radius: 50%;
 	cursor: pointer;
 }
-
-bg-transparant {
-	background-color: transparent;
-}
-bg-white {
-	background-color: white;
-}
-
 .navbar {
 	padding-top: 0;
 }
-
 .navbar-light .navbar-nav .nav-link {
 	font-weight: 500;
 	color: rgba(0, 0, 0, 1);
 }
-
 .navbar-toggler {
 	width: 100%;
 }
@@ -41,9 +76,51 @@ bg-white {
 .carousel {
 	box-shadow: unset;
 }
-
 .carousel-inner {
-	height: 650px;
+	max-height: 750px;
+}
+
+/* View Product */
+#view-product-section {
+	margin-top: 1em;
+}
+.view-product-detail > p {
+	margin-bottom: 1.3em;
+}
+.view-product-detail > h5 {
+	margin-bottom: 0.3em;
+}
+.view-product-price {
+	color: green;
+}
+
+/* Cart */
+.cart {
+	color: inherit; /* blue colors for links too */
+	text-decoration: none; /* no underline */
+	position: absolute;
+	padding-right: inherit;
+	right: 0;
+	margin-right: 85px;
+}
+.cart-card .card-body {
+	display: flex;
+}
+.cart-item-image {
+	width: auto;
+	height: 80px;
+	border-radius: 4px;
+}
+.cart-item-detail {
+	margin-left: 1em;
+	margin-bottom: 0;
+}
+.cart-item-name {
+	margin-bottom: 0.3em;
+}
+.cart-item-price {
+	font-weight: 500;
+	color: green;
 }
 
 @media (max-width: 575.98px) {
@@ -56,7 +133,10 @@ bg-white {
 	}
 
 	.logged-in-dropdown,
-	login-button {
+	.login-button {
 		margin-left: auto !important;
+	}
+	.carousel-inner {
+		max-height: 250px;
 	}
 }

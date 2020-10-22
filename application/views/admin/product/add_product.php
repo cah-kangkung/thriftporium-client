@@ -1,31 +1,3 @@
-<script>
-    const previewImage = function() {
-        $('#imagePreview').html('');
-        let total_file = document.getElementById('images').files.length;
-        for (let i = 0; i < total_file; i++) {
-            const template = document.createElement('div');
-            template.classList.add('col-xl-3');
-            template.classList.add('col-lg-4');
-            template.classList.add('col-md-6');
-            template.classList.add('mb-4');
-            template.innerHTML = `<div class="card" style="width: 200px; height: 200px;">
-                                    <img class="card-img-top" style="height: 100%; width: 100%; object-fit: contain;" src="" alt="Product images">
-                                </div>`;
-            const img = template.querySelector('img');
-            img.src = URL.createObjectURL(event.target.files[i]);
-            img.onload = function() {
-                URL.revokeObjectURL(this.src);
-            }
-            $('#imagePreview').append(template);
-        }
-    };
-
-    const clearFileInput = function() {
-        document.getElementById('images').value = '';
-        $('#imagePreview').html('');
-    };
-</script>
-
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -105,6 +77,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="weight" class="col-sm-4 col-form-label">Weight <span class="badge badge-pill badge-info">required</span></label>
+                            <div class="col-sm-8">
+                                <div class="input-group mb-2">
+                                    <input type="text" class="form-control <?php echo (form_error('weight')) ? 'is-invalid' : ''; ?>" name="weight" id="weight" placeholder="Enter weight (ex. 500)" value="<?php echo set_value('weight'); ?>">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">gram</span>
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        <?php echo form_error('weight', '<div class="pl-2">', '</div>'); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- Price -->
@@ -152,3 +138,31 @@
 
 </div>
 <!-- End of Main Content -->
+
+<script>
+    const previewImage = function() {
+        $('#imagePreview').html('');
+        let total_file = document.getElementById('images').files.length;
+        for (let i = 0; i < total_file; i++) {
+            const template = document.createElement('div');
+            template.classList.add('col-xl-3');
+            template.classList.add('col-lg-4');
+            template.classList.add('col-md-6');
+            template.classList.add('mb-4');
+            template.innerHTML = `<div class="card" style="width: 200px; height: 200px;">
+                                    <img class="card-img-top" style="height: 100%; width: 100%; object-fit: contain;" src="" alt="Product images">
+                                </div>`;
+            const img = template.querySelector('img');
+            img.src = URL.createObjectURL(event.target.files[i]);
+            img.onload = function() {
+                URL.revokeObjectURL(this.src);
+            }
+            $('#imagePreview').append(template);
+        }
+    };
+
+    const clearFileInput = function() {
+        document.getElementById('images').value = '';
+        $('#imagePreview').html('');
+    };
+</script>
