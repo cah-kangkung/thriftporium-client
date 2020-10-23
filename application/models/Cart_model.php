@@ -48,7 +48,7 @@ class Cart_model extends CI_Model
         return $result;
     }
 
-    public function edit_cart($data = array(), $id)
+    public function edit_cart_item($data = array(), $id)
     {
         try {
             $response = $this->_client->request('PUT', 'user/cart/' . $id, [
@@ -62,10 +62,10 @@ class Cart_model extends CI_Model
         return $result;
     }
 
-    public function delete_cart($id, $product_id)
+    public function delete_cart_item($user_id, $product_id)
     {
         try {
-            $response = $this->_client->request('DELETE', 'user/cart/' . $id . '/' . $product_id);
+            $response = $this->_client->request('DELETE', 'user/cart/' . $user_id . '/' . $product_id);
         } catch (RequestException $e) {
             return json_decode($e->getResponse()->getBody()->getContents(), true);
         }

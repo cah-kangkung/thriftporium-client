@@ -1,5 +1,5 @@
 <main>
-    <section id="view-product-section">
+    <section id="view-product-section" class="top-section">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
@@ -20,7 +20,7 @@
                     <span class="badge badge-info"><?php echo $product['category_name']; ?></span>
                     <div class="view-product-detail mt-2">
                         <h3 class="view-product-name"><?php echo $product['product_name']; ?></h3>
-                        <h5 class="view-product-price mb-4">Rp <?php echo $product['product_price'] / 1000; ?>, 000</h5>
+                        <h5 class="view-product-price mb-4">Rp<?php echo $product['product_price'] / 1000; ?>.000</h5>
                         <h5 class="">Description: </h5>
                         <p class="view-product-description fw-400"><?php echo $product['product_description']; ?></p>
                         <h5 class="">Weight: </h5>
@@ -28,14 +28,14 @@
                     </div>
                     <form class="buy-form" action="<?php echo site_url(); ?>cart/add_to_cart" method="post">
                         <div class="row mb-4">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <h5>Quantity: </h5>
                             </div>
-                            <div class="col-md-9">
-                                <div class="input-number" style="display: flex; align-items: center;">
-                                    <button type="button" class="btn btn-secondary btn-sm" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="fas fa-chevron-down"></i></button>
+                            <div class="col-md-10">
+                                <div class="input-number ml-3" style="display: flex; align-items: center;">
+                                    <i class="fas fa-minus-circle fa-lg" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></i>
                                     <input class="mx-2" type="number" min="1" max="<?php echo $product['product_availability']; ?>" name="quantity" value="<?php echo $product['product_availability']; ?>" readonly>
-                                    <button type="button" class="btn btn-secondary btn-sm" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i class="fas fa-chevron-up"></i></button>
+                                    <i class="fas fa-plus-circle fa-lg" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"></i>
                                 </div>
                             </div>
                         </div>

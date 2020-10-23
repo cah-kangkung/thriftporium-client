@@ -34,7 +34,7 @@
                 </div>
             </form>
             <?php if ($this->session->userdata('logged_in')) : ?>
-                <a class="cart" href="<?php echo site_url(); ?>cart">
+                <a class="cart-icon" href="<?php echo site_url(); ?>cart">
                     <i class="fas fa-shopping-cart fa-lg"></i>
                 </a>
                 <div class="logged-in-dropdown" data-toggle="dropdown">
@@ -42,7 +42,7 @@
                     <i class="fas fa-caret-down ml-1"></i>
                 </div>
                 <div class="dropdown-menu dropdown-menu-right mt-2">
-                    <a class="dropdown-item" href="#">Profile</a>
+                    <a class="dropdown-item" href="<?php echo site_url(); ?>profile/edit/<?php echo $user['id']; ?>">Profile</a>
                     <a class="dropdown-item" href="#">Order</a>
                     <a class="dropdown-item" href="#">Waiting Payment</a>
                     <div class="dropdown-divider"></div>

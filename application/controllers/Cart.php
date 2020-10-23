@@ -60,4 +60,45 @@ class Cart extends CI_Controller
             }
         }
     }
+
+    public function delete_cart_item($user_id, $product_id)
+    {
+        if (!$this->session->userdata('logged_in')) {
+            redirect('auth');
+        } else {
+            $response = $this->Cart->delete_cart_item($user_id, $product_id);
+            if ($response['code'] != 200) {
+                // echo 'failed' . $response['message'];
+                $this->session->set_flashdata('danger_alert', 'Operation failed: ' . $response['message'] . $response['error_detail']);
+                redirect('cart');
+            } else {
+                // echo 'success';
+                $this->session->set_flashdata('success_alert', 'Item has been deleted');
+                redirect('cart');
+            }
+        }
+    }
+
+    public function edit_cart_item($user_id, $product_id)
+    {
+        if (!$this->session->userdata('logged_in')) {
+            redirect('auth');
+        } else {
+            $qty = $this->input->post('quantity');
+            $data = [
+                'product' => (int) $product_id,
+                'qty' => (int) $qty,
+            ];
+            $response = $this->Cart->edit_cart_item($data, $user_id);
+            if ($response['code'] != 200) {
+                // echo 'failed' . $response['message'];
+                $this->session->set_flashdata('danger_alert', 'Operation failed: ' . $response['message'] . $response['error_detail']);
+                redirect('cart');
+            } else {
+                // echo 'success';
+                $this->session->set_flashdata('success_alert', 'Item has been edited');
+                redirect('cart');
+            }
+        }
+    }
 }
