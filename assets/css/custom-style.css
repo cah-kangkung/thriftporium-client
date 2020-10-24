@@ -124,8 +124,11 @@ input[type="number"] {
 	width: 100%;
 	margin-bottom: 0;
 }
+.cart-item-detail > p {
+	margin-bottom: 0.1em;
+}
 .cart-item-name {
-	margin-bottom: 0.3em;
+	margin-bottom: 0.4em;
 }
 .cart-item-price {
 	font-weight: 500;
@@ -176,6 +179,18 @@ input[type="number"] {
 	/*when navigating through the items using the arrow keys:*/
 	background-color: DodgerBlue !important;
 	color: #ffffff;
+}
+.shopping-summary {
+	position: -webkit-sticky;
+	position: sticky;
+	top: 150px;
+}
+.shopping-summary p {
+	margin-bottom: 0.3em;
+}
+p.price {
+	font-weight: 500;
+	color: green;
 }
 
 @media (max-width: 575.98px) {

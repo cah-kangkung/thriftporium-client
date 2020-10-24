@@ -56,8 +56,7 @@ class Order extends CI_Controller
                 }
             }
 
-            $this->form_validation->set_rules('name', 'Category Name', 'required|trim');
-            $this->form_validation->set_rules('description', 'Category Description', 'required|trim');
+            $this->form_validation->set_rules('transfer_to', 'Transfer Destinatio', 'required|trim');
             if ($this->form_validation->run() == FALSE) {
                 $data = [
                     'user' => $user,
@@ -71,10 +70,9 @@ class Order extends CI_Controller
                 $this->load->view('order/checkout');
                 $this->load->view('layout/footer');
             } else {
-                $data = [
-                    'name' => htmlspecialchars($this->input->post('name', true)),
-                    'description' => htmlspecialchars($this->input->post('description', true)),
-                ];
+
+                var_dump($this->input->post());
+                die;
 
                 $response = $this->Category->create_category($data);
                 if ($response['code'] != 200) {
@@ -85,6 +83,37 @@ class Order extends CI_Controller
                     redirect('cart');
                 }
             }
+        }
+    }
+
+    public function get_shipping_cost($origin, $destination, $weight, $courier)
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "origin=" . $origin . "&destination=" . $destination . "&weight=" . $weight . "&courier=" . $courier,
+            CURLOPT_HTTPHEADER => array(
+                "content-type: application/x-www-form-urlencoded",
+                "key: 20f8af10d260b3769767e26665282c8d"
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            echo $response;
         }
     }
 }
