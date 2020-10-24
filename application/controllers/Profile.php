@@ -17,19 +17,20 @@ class Profile extends CI_Controller
 
     public function edit_profile($id)
     {
+
         if (!$this->session->userdata('logged_in')) {
             $this->session->set_flashdata('success', 'You must login before!');
             redirect('auth');
         } else {
             // get all user information from the database
-            $email = $this->session->userdata('user_email');
-            $user = $this->User->get_user($email, 'email');
+            $user = $this->User->get_user($id);
+            $cities = $this->Address->get_cities();
 
             $this->form_validation->set_rules('first_name', 'First Name', 'required|trim');
             $this->form_validation->set_rules('last_name', 'Last Name', 'required|trim');
+            $this->form_validation->set_rules('gender', 'Gender', 'required|trim');
             $this->form_validation->set_rules('phone', 'Phone', 'required|trim');
             $this->form_validation->set_rules('address', 'Address', 'required|trim');
-            $this->form_validation->set_rules('province', 'Province', 'required|trim');
             $this->form_validation->set_rules('city', 'City', 'required|trim');
             $this->form_validation->set_rules('zipcode', 'Zipcode', 'required|trim');
             if ($this->form_validation->run() == FALSE) {
@@ -38,13 +39,22 @@ class Profile extends CI_Controller
                     'title' => 'Thriftporium - Edit Profile',
                     'category' => $this->Category->get_all_category(),
                     'cart_products' => $this->Cart->get_cart_products($user['id']),
-                    'provinces' => $this->Address->get_provinces(),
+                    'cities' => $cities,
                 ];
 
                 $this->load->view('layout/header', $data);
                 $this->load->view('profile/edit_profile');
                 $this->load->view('layout/footer');
             } else {
+                $city = htmlspecialchars($this->input->post('city', true));
+                $city = explode(', ', $city);
+
+                $city_id = 0;
+                for ($i = 0; $i < count($cities); $i++) {
+                    if ($cities[$i]['city_name'] == $city[1]) {
+                        $city_id = $cities[$i]['id'];
+                    }
+                }
 
                 $data = [
                     'first_name' => htmlspecialchars($this->input->post('first_name', true)),
@@ -52,7 +62,7 @@ class Profile extends CI_Controller
                     'gender' => htmlspecialchars($this->input->post('gender', true)),
                     'phone' => htmlspecialchars($this->input->post('phone', true)),
                     'address' => htmlspecialchars($this->input->post('address', true)),
-                    'city' => (int) htmlspecialchars($this->input->post('city', true)),
+                    'city' => $city_id,
                     'zipcode' => htmlspecialchars($this->input->post('zipcode', true)),
                 ];
 
@@ -90,18 +100,12 @@ class Profile extends CI_Controller
                 $response = $this->User->update_user($data, $id);
                 if ($response['code'] != 200) {
                     $this->session->set_flashdata('danger_alert', 'Operation failed: ' . $response['message'] . $response['error_detail']);
-                    redirect('profile/edit/' . $user['id']);
+                    redirect('profile/edit/' . $id);
                 } else {
                     $this->session->set_flashdata('success_alert', 'User has been updated');
-                    redirect('profile/edit/' . $user['id']);
+                    redirect('profile/edit/' . $id);
                 }
             }
         }
-    }
-
-    public function get_cities($province_id)
-    {
-        $result = $this->Address->get_cities($province_id);
-        echo json_encode($result);
     }
 }

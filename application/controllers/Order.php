@@ -12,7 +12,7 @@ class Order extends CI_Controller
         $this->load->model('Category_model', 'Category');
         $this->load->model('Product_model', 'Product');
         $this->load->model('Cart_model', 'Cart');
-        // $this->load->model('Order_model', 'Order');
+        $this->load->model('Address_model', 'Address');
     }
 
     public function index()
@@ -49,13 +49,21 @@ class Order extends CI_Controller
             $user = $this->User->get_user($email, 'email');
             $cart_items = unserialize(base64_decode($this->input->post('cart_items')));
 
+            for ($i = 0; $i < count($cart_items); $i++) {
+                if ($cart_items[$i]['product_availability'] == 0) {
+                    $this->session->set_flashdata('danger_alert', $cart_items[$i]['product_name'] . ' is out of stock!');
+                    redirect('cart');
+                }
+            }
+
             $this->form_validation->set_rules('name', 'Category Name', 'required|trim');
             $this->form_validation->set_rules('description', 'Category Description', 'required|trim');
             if ($this->form_validation->run() == FALSE) {
                 $data = [
                     'user' => $user,
-                    'title' => 'User - Cart',
+                    'title' => 'Thriftpotium | Checkout',
                     'category' => $this->Category->get_all_category(),
+                    'cities' => $this->Address->get_cities(),
                     'cart_items' => $cart_items,
                 ];
 
@@ -71,10 +79,10 @@ class Order extends CI_Controller
                 $response = $this->Category->create_category($data);
                 if ($response['code'] != 200) {
                     $this->session->set_flashdata('danger_alert', 'Operation failed: ' . $response['message'] . $response['error_detail']);
-                    redirect('category');
+                    redirect('cart');
                 } else {
                     $this->session->set_flashdata('success_alert', 'Category has been added');
-                    redirect('category');
+                    redirect('cart');
                 }
             }
         }

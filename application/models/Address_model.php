@@ -30,14 +30,10 @@ class Address_model extends CI_Model
         return $result['data'];
     }
 
-    public function get_cities($province_id)
+    public function get_cities()
     {
         try {
-            $response = $this->_client->request('GET', '/province/city', [
-                'query' => [
-                    'p_id' => $province_id,
-                ]
-            ]);
+            $response = $this->_client->request('GET', '/province/city');
         } catch (\Throwable $e) {
             return null;
         }

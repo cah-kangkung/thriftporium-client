@@ -17,7 +17,7 @@
             <div class="row" style="padding: 18px;">
                 <div class="col-lg-9">
 
-                    <form action="<?php echo site_url(); ?>profile/edit/<?php echo $user['id']; ?>" method="post" enctype="multipart/form-data">
+                    <form method="post" action="<?php echo site_url(); ?>profile/edit_profile/<?php echo $user['id']; ?>" enctype="multipart/form-data">
 
                         <h4>Profile Picture</h4>
                         <hr>
@@ -95,25 +95,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="province" class="col-sm-3 col-form-label">Province*</label>
-                                    <div class="col-sm-9">
-                                        <select class="custom-select <?php echo (form_error('province')) ? 'is-invalid' : ''; ?>" id="province" name="province">
-                                            <option value="<?php echo $user['province_id']; ?>" selected><?php echo $user['user_province']; ?></option>
-                                            <?php foreach ($provinces as $province) : ?>
-                                                <option value="<?php echo $province['id']; ?>"><?php echo $province['province_name']; ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                        <div class="invalid-feedback">
-                                            <?php echo form_error('province', '<div class="pl-2">', '</div>'); ?>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
                                     <label for="city" class="col-sm-3 col-form-label">City*</label>
-                                    <div class="col-sm-9">
-                                        <select class="custom-select <?php echo (form_error('city')) ? 'is-invalid' : ''; ?>" id="city" name="city">
-                                            <option value="<?php echo $user['city_id']; ?>" selected><?php echo $user['user_city']; ?></option>
-                                        </select>
+                                    <div class="col-sm-9 autocomplete">
+                                        <input type="text" class="form-control <?php echo (form_error('city')) ? 'is-invalid' : ''; ?>" name="city" id="cityProfile" value="<?php echo $user['user_province'] . ', ' . $user['user_city']; ?>">
                                         <div class="invalid-feedback">
                                             <?php echo form_error('city', '<div class="pl-2">', '</div>'); ?>
                                         </div>
@@ -144,29 +128,7 @@
 </main>
 
 
-
+<script src="<?php echo base_url(); ?>assets/js/components/Autocomplete.js"></script>
 <script>
-    document.getElementById("province").addEventListener("change", function() {
-
-        const url = '<?php echo site_url(); ?>profile/get_cities/';
-        const citySelect = document.getElementById('city');
-
-        fetch(`${url}${this.value}`)
-            .then(response => response.json())
-            .then(json => displayCities(json));
-
-        function displayCities(cities) {
-            citySelect.innerHTML = '';
-            let cityOption = '';
-            cities.forEach(city => {
-                let cityID = city.id;
-                let cityName = city.city_name;
-
-                let c = `<option value="${cityID}">${cityName}</option>`;
-
-                cityOption += c;
-            });
-            citySelect.innerHTML += cityOption;
-        }
-    });
+    autocomplete(document.getElementById('cityProfile'), <?php echo json_encode($cities); ?>);
 </script>

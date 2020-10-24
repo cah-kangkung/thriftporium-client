@@ -139,6 +139,45 @@ input[type="number"] {
 	left: -10px;
 }
 
+/* Checkout */
+.my-address {
+	background-color: rgba(0, 0, 0, 0.08);
+	padding: 1em;
+}
+.my-address > p {
+	margin-bottom: 0;
+}
+.autocomplete {
+	/*the container must be positioned relative:*/
+	position: relative;
+}
+.autocomplete-items {
+	position: absolute;
+	border: 1px solid #d4d4d4;
+	border-bottom: none;
+	border-top: none;
+	z-index: 99;
+	/*position the autocomplete items to be the same width as the container:*/
+	top: 100%;
+	left: 15px;
+	right: 15px;
+}
+.autocomplete-items div {
+	padding: 10px;
+	cursor: pointer;
+	background-color: #fff;
+	border-bottom: 1px solid #d4d4d4;
+}
+.autocomplete-items div:hover {
+	/*when hovering an item:*/
+	background-color: #e9e9e9;
+}
+.autocomplete-active {
+	/*when navigating through the items using the arrow keys:*/
+	background-color: DodgerBlue !important;
+	color: #ffffff;
+}
+
 @media (max-width: 575.98px) {
 	.navbar {
 		padding-top: 0.75rem;
