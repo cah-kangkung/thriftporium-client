@@ -158,7 +158,12 @@
                 </td>
 
                 <td>
-                    <?php echo $payment["status_details"] ?>
+                    <?php if ($payment['payment_status'] < 3) {
+                        echo 'UNPAID';
+                    } else {
+                        echo 'PAID';
+                    }
+                    ?>
                 </td>
             </tr>
 
