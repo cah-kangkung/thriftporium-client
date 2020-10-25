@@ -54,18 +54,24 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 
+# User routes
+$route['profile/edit/(:num)'] = 'profile/edit_profile/$1';
+
+$route['products'] = 'products/products';
+$route['products/(:num)'] = 'products/products/$1';
+
 # Admin routes
-$route['admin_dashboard'] = 'admin/admin_dashboard';
-$route['admin_profile'] = 'admin/admin_profile';
-$route['admin_profile/change_password/(:num)'] = 'admin/admin_profile/change_password/$1';
+$route['admin_dashboard'] = 'Admin/admin_dashboard';
+$route['admin_profile'] = 'Admin/admin_profile';
+$route['admin_profile/change_password/(:num)'] = 'Admin/admin_profile/change_password/$1';
 
-$route['admin_product'] = 'admin/admin_product';
-$route['admin_product/add_product'] = 'admin/admin_product/add_product';
-$route['admin_product/edit_product/(:num)'] = 'admin/admin_product/edit_product/$1';
-$route['admin_product/delete_product/(:num)'] = 'admin/admin_product/delete_product/$1';
-$route['admin_product/toggle_status/(:any)/(:num)'] = 'admin/admin_product/toggle_status/$1/$2';
+$route['admin_product'] = 'Admin/admin_product';
+$route['admin_product/add_product'] = 'Admin/admin_product/add_product';
+$route['admin_product/edit_product/(:num)'] = 'Admin/admin_product/edit_product/$1';
+$route['admin_product/delete_product/(:num)'] = 'Admin/admin_product/delete_product/$1';
+$route['admin_product/toggle_status/(:any)/(:num)'] = 'Admin/admin_product/toggle_status/$1/$2';
 
-$route['category'] = 'admin/admin_category';
-$route['category/add_category'] = 'admin/admin_category/add_category';
-$route['category/edit_category/(:num)'] = 'admin/admin_category/edit_category/$1';
-$route['category/delete_category/(:num)'] = 'admin/admin_category/delete_category/$1';
+$route['category'] = 'Admin/admin_category';
+$route['category/add_category'] = 'Admin/admin_category/add_category';
+$route['category/edit_category/(:num)'] = 'Admin/admin_category/edit_category/$1';
+$route['category/delete_category/(:num)'] = 'Admin/admin_category/delete_category/$1';

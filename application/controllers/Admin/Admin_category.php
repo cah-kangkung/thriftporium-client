@@ -75,7 +75,7 @@ class Admin_category extends CI_Controller
 
                 $response = $this->Category->create_category($data);
                 if ($response['code'] != 200) {
-                    $this->session->set_flashdata('danger_alert', 'Operation failed: ' . $response['message']);
+                    $this->session->set_flashdata('danger_alert', 'Operation failed: ' . $response['message'] . $response['error_detail']);
                     redirect('category');
                 } else {
                     $this->session->set_flashdata('success_alert', 'Category has been added');
@@ -120,7 +120,7 @@ class Admin_category extends CI_Controller
 
                 $response = $this->Category->edit_category($data, $id);
                 if ($response['code'] != 200) {
-                    $this->session->set_flashdata('danger_alert', 'Upadate failed: ' . $response['code'] . " " . $response['message']);
+                    $this->session->set_flashdata('danger_alert', 'Upadate failed: ' . $response['code'] . " " . $response['message'] . $response['error_detail']);
                     redirect('category/edit_category/' . $id);
                 } else {
                     $this->session->set_flashdata('success_alert', 'Category has been updated');

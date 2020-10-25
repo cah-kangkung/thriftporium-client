@@ -1,12 +1,27 @@
 $(document).ready(function () {
 
-    const dataTables = function () {
-        $('#dataTable').DataTable({
-            responsive: true,
-            pageLength: 25
-        });
+    "use strict";
+
+    // const dataTables = function () {
+    //     $('#dataTable').DataTable({
+    //         responsive: true,
+    //         pageLength: 25
+    //     });
+    // }
+    // dataTables();
+
+    const scrollNavbar = function () {
+        var myHeader = document.getElementById('header');
+        window.onscroll = function () { 
+            if (document.body.scrollTop >= 50 || document.documentElement.scrollTop >= 50) {
+                myHeader.classList.add("shadow-sm");
+            } 
+            else {
+                myHeader.classList.remove("shadow-sm");
+            }
+        };  
     }
-    dataTables();
+    scrollNavbar();
 
     // const pusherConnection = function () {
 

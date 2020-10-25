@@ -77,6 +77,7 @@ class Admin_product extends CI_Controller
                     'name' => htmlspecialchars($this->input->post('name', true)),
                     'description' => htmlspecialchars($this->input->post('description', true)),
                     'stock' => (int) htmlspecialchars($this->input->post('stock', true)),
+                    'weight' => (int) htmlspecialchars($this->input->post('weight', true)),
                     'category_id' => (int) htmlspecialchars($this->input->post('category_id', true)),
                     'price' => (int) htmlspecialchars($this->input->post('price', true)),
                 ];
@@ -130,7 +131,7 @@ class Admin_product extends CI_Controller
 
                 $response = $this->Product->create_product($data);
                 if ($response['code'] != 200) {
-                    $this->session->set_flashdata('danger_alert', 'Upload failed: ' . $response['message'] . " -> " . $response['error_details']);
+                    $this->session->set_flashdata('danger_alert', 'Upload failed: ' . $response['message'] . " -> " . $response['error_detail']);
                     redirect('admin_product/add_product');
                 } else {
                     $this->session->set_flashdata('success_alert', 'Product has been added');
@@ -196,6 +197,7 @@ class Admin_product extends CI_Controller
                     'name' => htmlspecialchars($this->input->post('name', true)),
                     'description' => htmlspecialchars($this->input->post('description', true)),
                     'stock' => $stock,
+                    'weight' => (int) htmlspecialchars($this->input->post('weight', true)),
                     'availability' => $stock - $product['product_availability'],
                     'category_id' => (int) htmlspecialchars($this->input->post('category_id', true)),
                     'price' => (int) htmlspecialchars($this->input->post('price', true)),
@@ -240,7 +242,7 @@ class Admin_product extends CI_Controller
 
                 $response = $this->Product->edit_product($data, $id);
                 if ($response['code'] != 200) {
-                    $this->session->set_flashdata('danger_alert', 'Upload failed: ' . $response['message'] . " -> " . $response['error_details']);
+                    $this->session->set_flashdata('danger_alert', 'Upload failed: ' . $response['message'] . " -> " . $response['error_detail']);
                     redirect('admin_product/edit_product/' . $product['id']);
                 } else {
                     $this->session->set_flashdata('success_alert', 'Product has been edited');
