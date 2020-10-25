@@ -122,11 +122,11 @@
                                                 </p>
                                             </div>
                                             <p class="card-text d-inline">
-                                                Total: <p style="color: green; display: inline; font-weight: 500;">Rp <?php echo $payment['total_amount'] / 1000 ?>,000</p> | Tanggal Pesan: <?php echo $payment['date_created'] ?>
+                                                Total: <p style="color: green; display: inline; font-weight: 500;">Rp <?php echo $payment['total_price'] / 1000 ?>,000</p> | Tanggal Pesan: <?php echo $payment['payment_created'] ?>
                                             </p>
                                             <?php if ($payment['payment_status'] == 1) : ?>
                                                 <div class="alert alert-warning" role="alert">
-                                                    Bayar Sebelum <?php echo $payment['date_expired'] ?>
+                                                    Bayar Sebelum <?php echo $payment['payment_expired'] ?>
                                                 </div>
                                             <?php elseif ($payment['payment_status'] == 3) : ?>
                                                 <div class="alert alert-success" role="alert">
@@ -147,7 +147,7 @@
                                                     <p class="card-text">Metode</p>
                                                 </div>
                                                 <div class="col-md-9">
-                                                    <p class="card-text">: Transfer Bank <?php echo $payment['bank'] ?> ke <?php echo $payment['destination_bank'] ?> </p>
+                                                    <p class="card-text">: Transfer <?php echo $payment['user_accountbank'] ?> ke <?php echo $payment['payment_bank_name'] ?> </p>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -155,7 +155,7 @@
                                                     <p class="card-text">Rekening Pengirim</p>
                                                 </div>
                                                 <div class="col-md-9">
-                                                    <p class="card-text">: <?php echo $payment['bank_account_number'] ?> a.n <strong><?php echo $payment['bank_account_name']; ?></strong></p>
+                                                    <p class="card-text">: <?php echo $payment['user_accountnumber'] ?> a.n <strong><?php echo $payment['user_accountname']; ?></strong></p>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -163,7 +163,20 @@
                                                     <p class="card-text">Destinasi</p>
                                                 </div>
                                                 <div class="col-md-9">
-                                                    <p class="card-text">: <?php echo $payment['destination_acc_number'] ?> a.n <strong><?php echo $payment['destination_acc_name'] ?></strong></p>
+                                                    <p class="card-text">: <?php echo $payment['payment_account_number'] ?> a.n <strong><?php echo $payment['payment_account_name'] ?></strong></p>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-md-3">
+                                                    <p class="card-text">Bukti Bayar</p>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <p class="card-text">:</p>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-md-3">
+                                                    <img src="<?php echo base_url(); ?>assets/img/payment-receipt/<?php echo $payment['payment_receipt']; ?>" alt="" style="height: 100%; width: 200%; object-fit: contain;">
                                                 </div>
                                             </div>
                                         </div>
