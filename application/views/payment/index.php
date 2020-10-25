@@ -122,6 +122,9 @@
                                     <a href="" class="mr-2"> See Your Order</a>
                                 </small>
                             <?php endif; ?>
+                            <small>
+                                <a href="<?php echo site_url(); ?>payments/invoice/<?php echo $payment['id']; ?>" target="_blank" class="mr-2"> Print Invoice </a>
+                            </small>
                         </div>
                     </div>
 
