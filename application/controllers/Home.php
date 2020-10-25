@@ -18,7 +18,9 @@ class Home extends CI_Controller
         // get all user information from the database
         $email = $this->session->userdata('user_email');
         $user = $this->User->get_user($email, 'email');
-
+        if ($user['role_id'] !== 2001) {
+            redirect('admin_dashboard');
+        }
         $data = [
             'user' => $user,
             'title' => 'Thriftporium - Home',

@@ -93,4 +93,21 @@ class Products extends CI_Controller
         $this->load->view('products/index');
         $this->load->view('layout/footer');
     }
+
+    public function search_products()
+    {
+        $email = $this->session->userdata('user_email');
+        $user = $this->User->get_user($email, 'email');
+
+        $data = [
+            'user' => $user,
+            'title' => 'Thriftporium - Products - search',
+            'category' => $this->Category->get_all_category(),
+            'products' => $this->Product->get_product($_GET['name'], 'name'),
+        ];
+
+        $this->load->view('layout/header', $data);
+        $this->load->view('products/index');
+        $this->load->view('layout/footer');
+    }
 }
