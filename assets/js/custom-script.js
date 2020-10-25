@@ -2,14 +2,6 @@ $(document).ready(function () {
 
     "use strict";
 
-    const dataTables = function () {
-         $('#dataTable').DataTable({
-            responsive: true,
-            pageLength: 25
-        });
-    }
-    dataTables();
-
     const scrollNavbar = function () {
         var myHeader = document.getElementById('header');
         window.onscroll = function () { 
@@ -22,6 +14,15 @@ $(document).ready(function () {
         };  
     }
     scrollNavbar();
+
+    const dataTables = function () {
+         $('#dataTable').DataTable({
+            responsive: true,
+            pageLength: 25
+        });
+    }
+    dataTables();
+    
 
     // const pusherConnection = function () {
 

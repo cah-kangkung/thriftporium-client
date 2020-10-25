@@ -19,17 +19,6 @@ class Invoice extends CI_Controller
         $this->load->model('Payment_model', 'Payment');
     }
 
-    public function index()
-    {
-        if (!$this->session->userdata('logged_in')) {
-            $this->session->set_flashdata('success', 'You must login before!');
-            redirect('auth');
-        } else {
-            var_dump("index");
-            die;
-        }
-    }
-
     public function report($id)
     {
         if (!$this->session->userdata('logged_in')) {
