@@ -62,10 +62,24 @@ class Payment_model extends CI_Model
         return $result;
     }
 
-    public function edit_payment($data = array(), $id)
+    public function edit_bank_info($data = array(), $payment_id)
     {
         try {
-            $response = $this->_client->request('PUT', 'payment/' . $id, [
+            $response = $this->_client->request('PUT', 'payment/bank/' . $payment_id, [
+                'json' => $data,
+            ]);
+        } catch (RequestException $e) {
+            return json_decode($e->getResponse()->getBody()->getContents(), true);
+        }
+
+        $result = json_decode($response->getBody()->getContents(), true);
+        return $result;
+    }
+
+    public function upload_proof($data = array(), $payment_id)
+    {
+        try {
+            $response = $this->_client->request('PUT', 'payment/receipt/' . $payment_id, [
                 'json' => $data,
             ]);
         } catch (RequestException $e) {

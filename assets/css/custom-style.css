@@ -193,6 +193,11 @@ p.price {
 	color: green;
 }
 
+/* Payment  */
+.card .card-text {
+	margin-bottom: 0;
+}
+
 @media (max-width: 575.98px) {
 	.navbar {
 		padding-top: 0.75rem;
