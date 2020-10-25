@@ -63,6 +63,8 @@ $route['products/latest'] = 'products/latest_products';
 $route['products/search'] = 'products/search_products';
 $route['products/category/(:any)'] = 'products/filter_category_product/$1';
 
+$route['order/order_finished/(:num)'] = 'order/order_finished/$1';
+
 $route['payment'] = 'payment/payment_list';
 $route['payments/change_transferto'] = 'payment/change_transferto';
 $route['payments/invoice/(:num)'] = 'invoice/report/$1';

@@ -48,34 +48,40 @@
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>No. Invoice</th>
-                            <th>Nama Pembeli</th>
-                            <th>Total Harga</th>
-                            <th>Metode Pembayaran</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php $i = 1; ?>
-                        <?php foreach ($payments as $p) : ?>
+        <?php if (isset($payments)) : ?>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
                             <tr>
-                                <td><?php echo $i; ?></td>
-                                <td><?php echo $p['inv_number']; ?></td>
-                                <td><?php echo $p['user_firstname'] . " " .  $p['user_lastname']; ?></td>
-                                <td><?php echo $p['total_price'] / 1000; ?>.000</td>
-                                <td><?php echo $p['payment_accounttype']; ?></td>
+                                <th>No</th>
+                                <th>No. Invoice</th>
+                                <th>Nama Pembeli</th>
+                                <th>Total Harga</th>
+                                <th>Metode Pembayaran</th>
                             </tr>
-                            <?php $i++; ?>
-                        <?php endforeach ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php $i = 1; ?>
+                            <?php foreach ($payments as $p) : ?>
+                                <tr>
+                                    <td><?php echo $i; ?></td>
+                                    <td><?php echo $p['inv_number']; ?></td>
+                                    <td><?php echo $p['user_firstname'] . " " .  $p['user_lastname']; ?></td>
+                                    <td><?php echo $p['total_price'] / 1000; ?>.000</td>
+                                    <td><?php echo $p['payment_accounttype']; ?></td>
+                                </tr>
+                                <?php $i++; ?>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+        <?php else : ?>
+            <div class="card-body text-center">
+                <div>Tidak ada transaksi di Sistem</div>
+            </div>
+        <?php endif; ?>
     </div>
 
 </div>

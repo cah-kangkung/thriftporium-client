@@ -157,4 +157,16 @@ class Order extends CI_Controller
             echo $response;
         }
     }
+
+    public function order_finished($shipping_id)
+    {
+        $response = $this->Order->order_finished($shipping_id);
+        if ($response['code'] != 200) {
+            $this->session->set_flashdata('danger_alert', 'Operation failed: ' . $response['message'] . $response['error_detail']);
+            redirect('order/order_list');
+        } else {
+            $this->session->set_flashdata('success_alert', 'Order has been finished');
+            redirect('order/order_list');
+        }
+    }
 }
