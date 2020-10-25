@@ -67,39 +67,34 @@
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
                                     Register Account
                                 </button>
-                                <!-- <hr>
-                            <a href="index.html" class="btn btn-google btn-user btn-block">
-                                <i class="fab fa-google fa-fw"></i> Register with Google
-                            </a>
-                            <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                            </a> -->
-                        </form>
-                        <br>
-                        <a href="<?php echo $google_url; ?>">google register</a>
-                        <hr>
-                        <div class="text-center">
-                            <a class="small" href="forgot-password.html">Forgot Password?</a>
-                        </div>
-                        <div class="text-center">
-                            <a class="small" href="<?php echo site_url(); ?>auth">Already have an account? Login!</a>
+                                <hr>
+                                <a href="<?php echo $google_url; ?>" class="btn btn-light btn-user btn-block">
+                                    <i class="fab fa-google fa-fw"></i> Register with Google
+                                </a>
+                            </form>
+                            <hr>
+                            <div class="text-center">
+                                <a class="small" href="forgot-password.html">Forgot Password?</a>
+                            </div>
+                            <div class="text-center">
+                                <a class="small" href="<?php echo site_url(); ?>auth">Already have an account? Login!</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
-    </div>
+        <footer>
 
-    <footer>
-
-    </footer>
-    <!-- Optional JavaScript -->
-    <!-- JavaScript Dependencies: jQuery, Popper.js, Bootstrap JS, Shards JS -->
-    <script src="<?php echo base_url(); ?>assets/js/jquery-3.5.1.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/bootstrap.bundle.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/shards.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/custom-script.js"></script>
+        </footer>
+        <!-- Optional JavaScript -->
+        <!-- JavaScript Dependencies: jQuery, Popper.js, Bootstrap JS, Shards JS -->
+        <script src="<?php echo base_url(); ?>assets/js/jquery-3.5.1.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/bootstrap.bundle.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/shards.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/custom-script.js"></script>
 </body>
 
 </html>
