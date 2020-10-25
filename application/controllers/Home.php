@@ -23,7 +23,7 @@ class Home extends CI_Controller
             'user' => $user,
             'title' => 'Thriftporium - Home',
             'category' => $this->Category->get_all_category(),
-            'products' => $this->Product->get_all_product(),
+            'products' => $this->Product->get_product_by_status('publish'),
         ];
 
         $this->load->view('layout/header', $data);

@@ -34,6 +34,58 @@ class Product_model extends CI_Model
         return $result['data'];
     }
 
+    public function get_product_by_status($value, $type = 'status')
+    {
+        try {
+            $response = $this->_client->request('GET', 'product', [
+                'query' => [
+                    $type => $value,
+                ]
+            ]);
+        } catch (\Throwable $e) {
+            return null;
+        }
+
+        $result = json_decode($response->getBody()->getContents(), true);
+
+        return $result['data'];
+    }
+
+    public function get_product_by_category($value, $type = 'category')
+    {
+        try {
+            $response = $this->_client->request('GET', 'product', [
+                'query' => [
+                    $type => $value,
+                ]
+            ]);
+        } catch (\Throwable $e) {
+            return null;
+        }
+
+        $result = json_decode($response->getBody()->getContents(), true);
+
+        return $result['data'];
+    }
+
+    public function get_product_by_time($value = 'latest', $type = 'time')
+    {
+        try {
+            $response = $this->_client->request('GET', 'product', [
+                'query' => [
+                    $type => $value,
+                ]
+            ]);
+        } catch (\Throwable $e) {
+            return null;
+        }
+
+        $result = json_decode($response->getBody()->getContents(), true);
+
+        return $result['data'];
+    }
+
+
     public function get_all_product()
     {
         try {

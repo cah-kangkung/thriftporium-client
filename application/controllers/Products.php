@@ -52,4 +52,45 @@ class Products extends CI_Controller
         $this->load->view('products/view_product');
         $this->load->view('layout/footer');
     }
+
+    public function filter_category_product($category = '')
+    {
+        // get all user information from the database
+        $email = $this->session->userdata('user_email');
+        $user = $this->User->get_user($email, 'email');
+
+        if ($category == '') {
+            redirect('home');
+        } else {
+            $data = [
+                'user' => $user,
+                'title' => 'Thriftporium - Products - ' . $category,
+                'category' => $this->Category->get_all_category(),
+                'products' => $this->Product->get_product_by_category($category),
+            ];
+            // var_dump($data);
+            // die;
+            $this->load->view('layout/header', $data);
+            $this->load->view('products/index');
+            $this->load->view('layout/footer');
+        }
+    }
+
+    public function latest_products()
+    {
+        $email = $this->session->userdata('user_email');
+        $user = $this->User->get_user($email, 'email');
+
+        $data = [
+            'user' => $user,
+            'title' => 'Thriftporium - Products - latest',
+            'category' => $this->Category->get_all_category(),
+            'products' => $this->Product->get_product_by_time(),
+        ];
+        // var_dump($data);
+        // die;
+        $this->load->view('layout/header', $data);
+        $this->load->view('products/index');
+        $this->load->view('layout/footer');
+    }
 }
