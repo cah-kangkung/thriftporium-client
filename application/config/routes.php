@@ -60,6 +60,7 @@ $route['profile/edit/(:num)'] = 'profile/edit_profile/$1';
 $route['products'] = 'products/products';
 $route['products/(:num)'] = 'products/products/$1';
 $route['products/latest'] = 'products/latest_products';
+$route['products/search'] = 'products/search_products';
 $route['products/category/(:any)'] = 'products/filter_category_product/$1';
 
 $route['payment'] = 'payment/payment_list';

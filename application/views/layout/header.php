@@ -23,9 +23,9 @@
             <a class="navbar-brand" href="<?php echo site_url(); ?>home" style="height: 100%;">
                 <img src="<?php echo base_url(); ?>assets/img/logo/thrift_logo_fixbgt.png" width="45" height="45" alt="">
             </a>
-            <form class="form-inline mx-auto my-lg-0">
+            <form class="form-inline mx-auto my-lg-0" action="<?php echo site_url(); ?>products/search" method="GET">
                 <div class=" input-group input-group-seamless">
-                    <input class="form-control form-control-sm my-2" type="text" placeholder="Search" aria-label="Search">
+                    <input class="form-control form-control-sm my-2" type="text" name='name' id='name' placeholder="Search" aria-label="Search">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <button type="submit" style="background-color: transparent; border: unset;"><i class="fas fa-search"></i></button>
