@@ -44,7 +44,7 @@
                 <div class="dropdown-menu dropdown-menu-right mt-2">
                     <a class="dropdown-item" href="<?php echo site_url(); ?>profile/edit/<?php echo $user['id']; ?>">Profile</a>
                     <a class="dropdown-item" href="<?php echo site_url(); ?>order/order_list">Order</a>
-                    <a class="dropdown-item" href="#">Waiting Payment</a>
+                    <a class="dropdown-item" href="<?php echo site_url(); ?>payment/payment_list">Waiting Payment</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="<?php echo site_url(); ?>auth/logout">Logout</a>
                 </div>
