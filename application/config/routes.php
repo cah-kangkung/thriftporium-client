@@ -62,6 +62,8 @@ $route['products/(:num)'] = 'products/products/$1';
 $route['products/latest'] = 'products/latest_products';
 $route['products/category/(:any)'] = 'products/filter_category_product/$1';
 
+$route['payments/invoice/(:num)'] = 'invoice/report/$1';
+
 # Admin routes
 $route['admin_dashboard'] = 'Admin/admin_dashboard';
 $route['admin_profile'] = 'Admin/admin_profile';
