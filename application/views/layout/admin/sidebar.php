@@ -34,13 +34,6 @@
             <span>My Profile</span></a>
     </li>
 
-    <!-- Nav Item - Users -->
-    <li class="nav-item <?php echo ($this->uri->segment(2) == 'user_list' ? 'active' : ''); ?>">
-        <a class="nav-link" href="<?php echo site_url(); ?>admin_user/user_list">
-            <i class="fas fa-fw fa-users"></i>
-            <span>Thriftporium User</span></a>
-    </li>
-
     <!-- Divider -->
     <hr class="sidebar-divider">
 

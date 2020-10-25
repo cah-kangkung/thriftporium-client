@@ -82,4 +82,8 @@ $route['category/edit_category/(:num)'] = 'Admin/admin_category/edit_category/$1
 $route['category/delete_category/(:num)'] = 'Admin/admin_category/delete_category/$1';
 
 $route['admin_order'] = 'Admin/admin_order';
+$route['admin_order/upload_resi'] = 'Admin/admin_order/upload_resi';
+$route['admin_order/order_finished/(:num)'] = 'Admin/admin_order/order_finished/$1';
+
 $route['admin_payment'] = 'Admin/admin_payment';
+$route['admin_payment/verify_payment'] = 'Admin/admin_payment/verify_payment';

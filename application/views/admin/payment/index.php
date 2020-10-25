@@ -6,7 +6,6 @@
         <h1 class="h3 mb-0 text-gray-800 mr-4">Payment</h1>
         <!-- <a href="<?php echo site_url(); ?>admin_test/add_question" class="btn btn-primary shadow-sm"></a> -->
     </div>
-    <?php var_dump($payment_list); ?>
 
     <?php if ($this->session->flashdata('danger_alert')) : ?>
         <div class="alert alert-dismissible alert-danger" role="alert">
@@ -27,20 +26,17 @@
         <div class="card-header py-3">
             <ul class="nav nav-pills">
                 <li class="nav-item">
-                    <a class="nav-link <?php echo ($this->input->get('filter') == '' ? 'active' : '') ?>" href="<?php echo site_url(); ?>admin_payment">All</a>
+                    <a class="nav-link" href="">All</a>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="">Waiting Payment</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?php echo ($this->input->get('filter') == '1' ? 'active' : '') ?>" href="<?php echo site_url(); ?>admin_payment?filter=1">Menunggu Pembayaran</a>
+                    <a class="nav-link" href="">Receipt Uploaded</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?php echo ($this->input->get('filter') == '3' ? 'active' : '') ?>" href="<?php echo site_url(); ?>admin_payment?filter=3">Pembayaran Terkonfirmasi</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?php echo ($this->input->get('filter') == '4' ? 'active' : '') ?>" href="<?php echo site_url(); ?>admin_payment?filter=4">Selesai</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?php echo ($this->input->get('filter') == '0' ? 'active' : '') ?>" href="<?php echo site_url(); ?>admin_payment?filter=0">Pembayaran Dibatalkan</a>
-                </li>
+                    <a class="nav-link" href="">Payment Verified</a>
+                </li> -->
             </ul>
         </div>
         <div class="card-body">
@@ -49,7 +45,6 @@
                     <thead>
                         <tr>
                             <th>Invoice</th>
-                            <th>Order ID</th>
                             <th>Bank Account</th>
                             <th>Bank Name</th>
                             <th>Bank Number</th>
@@ -65,7 +60,6 @@
                         <?php foreach ($payment_list as $payment) : ?>
                             <tr>
                                 <td><?php echo $payment['inv_number']; ?></td>
-                                <td><?php echo $payment['order_id']; ?></td>
                                 <td><?php echo $payment['user_accountbank']; ?></td>
                                 <td><?php echo $payment['user_accountname']; ?></td>
                                 <td><?php echo $payment['user_accountnumber']; ?></td>
@@ -75,44 +69,25 @@
                                 <td><?php echo $payment['status_details']; ?></td>
 
                                 <td>
-                                    <?php if ($payment['payment_status'] == 1) : ?>
-
+                                    <?php if ($payment['payment_status'] == 1 || $payment['payment_status'] == 2) : ?>
                                         <!-- Button trigger modal -->
-                                        <a href="" data-toggle="modal" data-target="#adminPaymentModal<?php echo $i; ?>"><span class="badge badge-info">Detil</span></a>
-
-                                        <a href="<?php echo site_url(); ?>admin_payment/cancel_payment?payment_id=<?php echo $payment['payment_id'] ?>&user_id=<?php echo $payment['user_id'] ?>">
-                                            <span class="badge badge-danger" onclick="return confirm('Yakin ingin membatalkan pembayaran?')">Batalkan</span>
+                                        <a href="" data-toggle="modal" data-target="#adminPaymentModal<?php echo $i; ?>"><span class="badge badge-info">Detail</span></a>
+                                        <a href="">
+                                            <span class="badge badge-danger" onclick="return confirm('Are you sure want to cancel this payment?')">Cancel</span>
                                         </a>
-                                        <a href="<?php echo site_url(); ?>admin_payment/confirm_payment?payment_id=<?php echo $payment['payment_id'] ?>&user_id=<?php echo $payment['user_id'] ?>">
-                                            <span class="badge badge-success" onclick="return confirm('Yakin ingin menkonfirmasi?')">Konfirmasi</span>
-                                        </a>
+                                        <form action="<?php echo site_url(); ?>admin_payment/verify_payment" method="post">
+                                            <button type="submit" class="badge badge-success" onclick="return confirm('Are you sure want to verify this payment?')">
+                                                Verify
+                                            </button>
+                                            <input type="hidden" name="payment_id" value="<?php echo $payment['id']; ?>">
+                                        </form>
                                     <?php elseif ($payment['payment_status'] == 3) : ?>
-
                                         <!-- Button trigger modal -->
-                                        <a href="" data-toggle="modal" data-target="#adminPaymentModal<?php echo $i; ?>"><span class="badge badge-info">Detil</span></a>
-
-                                        <a href="<?php echo site_url(); ?>admin_payment/cancel_payment?payment_id=<?php echo $payment['payment_id'] ?>&user_id=<?php echo $payment['user_id'] ?>">
-                                            <span class="badge badge-danger" onclick="return confirm('Yakin ingin membatalkan pembayaran?')">Batalkan</span>
-                                        </a>
-                                        <a href="<?php echo site_url(); ?>admin_payment/revert_to_waiting?payment_id=<?php echo $payment['payment_id'] ?>&user_id=<?php echo $payment['user_id'] ?>">
-                                            <span class="badge badge-warning" onclick="return confirm('Yakin ingin kembali menunggu pembayaran?')">Tunggu</span>
-                                        </a>
-                                    <?php elseif ($payment['payment_status'] == 4) : ?>
-
-                                        <!-- Button trigger modal -->
-                                        <a href="" data-toggle="modal" data-target="#adminPaymentModal<?php echo $i; ?>"><span class="badge badge-info">Detil</span>
-                                        </a>
+                                        <a href="" data-toggle="modal" data-target="#adminPaymentModal<?php echo $i; ?>"><span class="badge badge-info">Detail</span></a>
                                     <?php elseif ($payment['payment_status'] == 0) : ?>
 
                                         <!-- Button trigger modal -->
-                                        <a href="" data-toggle="modal" data-target="#adminPaymentModal<?php echo $i; ?>"><span class="badge badge-info">Detil</span></a>
-
-                                        <a href="<?php echo site_url(); ?>admin_payment/revert_to_waiting?payment_id=<?php echo $payment['payment_id'] ?>&user_id=<?php echo $payment['user_id'] ?>">
-                                            <span class="badge badge-warning" onclick="return confirm('Yakin ingin kembali menunggu pembayaran?')">Tunggu</span>
-                                        </a>
-                                        <a href="<?php echo site_url(); ?>admin_payment/confirm_payment?payment_id=<?php echo $payment['payment_id'] ?>&user_id=<?php echo $payment['user_id'] ?>">
-                                            <span class="badge badge-success" onclick="return confirm('Yakin ingin menkonfirmasi?')">Konfirmasi</span>
-                                        </a>
+                                        <a href="" data-toggle="modal" data-target="#adminPaymentModal<?php echo $i; ?>"><span class="badge badge-info">Detail</span></a>
                                     <?php endif; ?>
 
                                 </td>

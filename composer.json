@@ -14,7 +14,8 @@
 		"php": ">=5.3.7",
 		"guzzlehttp/guzzle": "^7.0",
 		"twbs/bootstrap": "4.5.2",
-		"dompdf/dompdf": "^0.8.5"
+		"dompdf/dompdf": "^0.8.5",
+		"google/apiclient": "^2.7"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"

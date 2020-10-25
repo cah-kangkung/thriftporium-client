@@ -75,4 +75,30 @@ class Order_model extends CI_Model
         $result = json_decode($response->getBody()->getContents(), true);
         return $result;
     }
+
+    public function upload_resi($data = array(), $id)
+    {
+        try {
+            $response = $this->_client->request('PUT', 'order/shipping/receipt/' . $id, [
+                'json' => $data,
+            ]);
+        } catch (RequestException $e) {
+            return json_decode($e->getResponse()->getBody()->getContents(), true);
+        }
+
+        $result = json_decode($response->getBody()->getContents(), true);
+        return $result;
+    }
+
+    public function order_finished($shipping_id)
+    {
+        try {
+            $response = $this->_client->request('PUT', 'order/shipping/arrived/' . $shipping_id);
+        } catch (RequestException $e) {
+            return json_decode($e->getResponse()->getBody()->getContents(), true);
+        }
+
+        $result = json_decode($response->getBody()->getContents(), true);
+        return $result;
+    }
 }
