@@ -1,5 +1,5 @@
 <main>
-    <section id="all-product-section">
+    <section id="all-product-section" class="top-section">
         <div class="container">
             <div class="row row-cols-1 row-cols-md-3">
                 <?php foreach ($products as $product) : ?>

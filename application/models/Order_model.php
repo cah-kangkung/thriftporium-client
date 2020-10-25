@@ -1,10 +1,11 @@
+
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
-class Address_model extends CI_Model
+class Order_model extends CI_Model
 {
 
     private $_client;
@@ -17,10 +18,14 @@ class Address_model extends CI_Model
         ]);
     }
 
-    public function get_provinces()
+    public function get_order($value, $type = 'id')
     {
         try {
-            $response = $this->_client->request('GET', '/province');
+            $response = $this->_client->request('GET', 'order', [
+                'query' => [
+                    $type => $value,
+                ]
+            ]);
         } catch (\Throwable $e) {
             return null;
         }
@@ -30,10 +35,10 @@ class Address_model extends CI_Model
         return $result['data'];
     }
 
-    public function get_cities()
+    public function get_all_order()
     {
         try {
-            $response = $this->_client->request('GET', '/province/city');
+            $response = $this->_client->request('GET', 'order');
         } catch (\Throwable $e) {
             return null;
         }
@@ -43,37 +48,31 @@ class Address_model extends CI_Model
         return $result['data'];
     }
 
-    public function get_city($value, $type = 'id')
+    public function create_order($data = array())
     {
         try {
-            $response = $this->_client->request('GET', '/province/city', [
-                'query' => [
-                    $type => $value
-                ]
+            $response = $this->_client->request('POST', 'order', [
+                'json' => $data,
             ]);
-        } catch (\Throwable $e) {
-            return null;
+        } catch (RequestException $e) {
+            return json_decode($e->getResponse()->getBody()->getContents(), true);
         }
 
         $result = json_decode($response->getBody()->getContents(), true);
-
-        return $result['data'][0];
+        return $result;
     }
 
-    public function get_courier($value, $type = 'id')
+    public function edit_order($data = array(), $id)
     {
         try {
-            $response = $this->_client->request('GET', 'courier', [
-                'query' => [
-                    $type => $value
-                ]
+            $response = $this->_client->request('PUT', 'order/' . $id, [
+                'json' => $data,
             ]);
-        } catch (\Throwable $e) {
-            return null;
+        } catch (RequestException $e) {
+            return json_decode($e->getResponse()->getBody()->getContents(), true);
         }
 
         $result = json_decode($response->getBody()->getContents(), true);
-
-        return $result['data'][0];
+        return $result;
     }
 }

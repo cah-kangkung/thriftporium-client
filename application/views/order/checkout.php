@@ -21,7 +21,7 @@
                                     <p><?php echo $user['user_city'] . ', ' . $user['user_province'] . ', ' . $user['user_zipcode']; ?></p>
 
                                     <input type="hidden" name="street" value="<?php echo $user['user_address']; ?>">
-                                    <input type="hidden" id="city" name="city" value="<?php echo $user['city_id']; ?>">
+                                    <input type="hidden" id="city" name="city" value="<?php echo $user['user_province'] . ', ' . $user['user_city']; ?>">
                                     <input type="hidden" name="zipcode" value="<?php echo $user['user_zipcode']; ?>">
                                     <input type="hidden" name="shipping_receiver" value="<?php echo $user['user_firstname'] . ' ' . $user['user_lastname']; ?>">
                                     <input type="hidden" name="shipping_phone" value="<?php echo $user['user_phone']; ?>">
@@ -115,7 +115,7 @@
                                     </select>
                                 </div>
                                 <hr>
-                                <div class="card shadow-sm mb-3">
+                                <!-- <div class="card shadow-sm mb-3">
                                     <div class="card-body">
                                         <p class="mb-0">Total Tagihan</p>
                                         <p class="price mb-0">
@@ -123,7 +123,7 @@
                                             </span>
                                         </p>
                                     </div>
-                                </div>
+                                </div> -->
                                 <h6>User Information</h6>
                                 <div class="form-group">
                                     <label for="account_bank">Account Bank*</label>
@@ -176,7 +176,7 @@
                     <p><?php echo $user['user_city'] . ', ' . $user['user_province'] . ', ' . $user['user_zipcode']; ?></p>
 
                     <input type="hidden" name="street" value="<?php echo $user['user_address']; ?>">
-                    <input type="hidden" id="city" name="city" value="<?php echo $user['city_id']; ?>">
+                    <input type="hidden" id="city" name="city" value="<?php echo $user['user_province'] . ', ' . $user['user_city']; ?>">
                     <input type="hidden" name="zipcode" value="<?php echo $user['user_zipcode']; ?>">
                     <input type="hidden" name="shipping_receiver" value="<?php echo $user['user_firstname'] . ' ' . $user['user_lastname']; ?>">
                     <input type="hidden" name="shipping_phone" value="<?php echo $user['user_phone']; ?>">
@@ -243,7 +243,7 @@
     document.getElementById('shippingCourier').addEventListener('change', function() {
         const url = '<?php echo site_url(); ?>order/get_shipping_cost';
         let origin = 151;
-        let destination = document.getElementById('city').value;
+        let destination = <?php echo $user['city_id']; ?>;
         let weight = '<?php echo $total_weight; ?>';
         let courier = this.value;
         getShippingCost(url, origin, destination, weight, courier);

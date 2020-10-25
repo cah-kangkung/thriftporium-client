@@ -80,6 +80,28 @@
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Order & Payment
+    </div>
+
+    <!-- Nav Item - Order -->
+    <li class="nav-item <?php echo ($this->uri->segment(1) == 'admin_order' ? 'active' : ''); ?>">
+        <a class="nav-link" href="<?php echo site_url(); ?>admin_order">
+            <i class="fas fa-shopping-basket"></i>
+            <span>Order</span></a>
+    </li>
+
+    <!-- Nav Item - Payment -->
+    <li class="nav-item <?php echo ($this->uri->segment(1) == 'admin_payment' ? 'active' : ''); ?>">
+        <a class="nav-link" href="<?php echo site_url(); ?>admin_payment">
+            <i class="fas fa-money-bill-wave"></i>
+            <span>Payment</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>

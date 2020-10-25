@@ -51,7 +51,7 @@ class Cart extends CI_Controller
             $response = $this->Cart->add_to_cart($data, $user_id);
             if ($response['code'] != 200) {
                 // echo 'failed' . $response['message'];
-                $this->session->set_flashdata('danger_alert', 'Operation failed: ' . $response['message'] . $response['error_detail']);
+                $this->session->set_flashdata('danger_alert', 'Operation failed: ' . $response['message'] . ' ' . 'Item already in cart!');
                 redirect('cart');
             } else {
                 // echo 'success';
