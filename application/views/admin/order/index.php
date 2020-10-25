@@ -165,6 +165,14 @@
                                             </div>
                                             <div class="row mb-2">
                                                 <div class="col-md-3">
+                                                    <p class="card-text">Total Weight</p>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <p class="card-text">: <?php echo $order['total_weight'] ?> gram</p>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-md-3">
                                                     <p class="card-text">Products</p>
                                                 </div>
                                                 <div class="col-md-9">
