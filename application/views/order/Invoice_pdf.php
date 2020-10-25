@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title><?php echo $title ?></title>
+    <link rel="icon" href="<?php echo base_url(); ?>assets/img/logo/thrift_logo_fixbgt.png">
 
     <style>
         .invoice-box {

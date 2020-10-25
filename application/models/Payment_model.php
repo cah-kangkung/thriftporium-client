@@ -101,4 +101,48 @@ class Payment_model extends CI_Model
         $result = json_decode($response->getBody()->getContents(), true);
         return $result;
     }
+
+    public function cancel_payment($payment_id)
+    {
+        try {
+            $response = $this->_client->request('PUT', 'payment/canceled/' . $payment_id);
+        } catch (RequestException $e) {
+            return json_decode($e->getResponse()->getBody()->getContents(), true);
+        }
+
+        $result = json_decode($response->getBody()->getContents(), true);
+        return $result;
+    }
+
+    public function reject_receipt($data = array(), $payment_id)
+    {
+        try {
+            $response = $this->_client->request('PUT', 'payment/receipt/' . $payment_id, [
+                'json' => $data,
+            ]);
+        } catch (RequestException $e) {
+            return json_decode($e->getResponse()->getBody()->getContents(), true);
+        }
+
+        $result = json_decode($response->getBody()->getContents(), true);
+        return $result;
+    }
+
+    public function change_transferto($data)
+    {
+        try {
+            $response = $this->_client->request('PUT', 'payment/transfer', [
+                'query' => [
+                    'id' => $data['payment_id'],
+                    'transfer_to' => $data['transfer_to']
+                ]
+            ]);
+        } catch (\Throwable $e) {
+            return null;
+        }
+
+        $result = json_decode($response->getBody()->getContents(), true);
+
+        return $result;
+    }
 }

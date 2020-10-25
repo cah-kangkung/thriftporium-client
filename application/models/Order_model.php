@@ -101,4 +101,16 @@ class Order_model extends CI_Model
         $result = json_decode($response->getBody()->getContents(), true);
         return $result;
     }
+
+    public function cancel_order($payment_id)
+    {
+        try {
+            $response = $this->_client->request('PUT', 'payment/canceled/' . $payment_id);
+        } catch (RequestException $e) {
+            return json_decode($e->getResponse()->getBody()->getContents(), true);
+        }
+
+        $result = json_decode($response->getBody()->getContents(), true);
+        return $result;
+    }
 }

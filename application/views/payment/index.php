@@ -5,7 +5,7 @@
                 Payment
             </h2>
 
-            <ul class="nav nav-pills mb-5">
+            <!-- <ul class="nav nav-pills mb-5">
                 <li class="nav-item">
                     <a class="nav-link active rounded-pill" href="">Waiting Payment</a>
                 </li>
@@ -18,7 +18,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="">Canceled</a>
                 </li>
-            </ul>
+            </ul> -->
 
             <?php if ($this->session->flashdata('danger_alert')) : ?>
                 <div class="alert alert-danger" role="alert">
@@ -103,10 +103,14 @@
                                     <a href="#" class="mr-3" data-toggle="modal" data-target="#paymentModal<?php echo $i; ?>">
                                         Change Bank Information
                                     </a>
+                                    <a href="#" class="mr-3" data-toggle="modal" data-target="#transfertoModal<?php echo $i; ?>">
+                                        Change Payment Destination
+                                    </a>
                                     <a href="#" class="mr-3" data-toggle="modal" data-target="#uploadModal<?php echo $i; ?>">
                                         Upload Proof of Payment
                                     </a>
-                                    <a href="" class="mr-2" onclick="return confirm('Are you sure want to cancel your payment?')"> Cancel Payment</a>
+                                    <a href="<?php echo site_url(); ?>payments/invoice/<?php echo $payment['id']; ?>" target="_blank" class="mr-2"> Print Invoice </a>
+                                    <a href="<?php echo site_url(); ?>payment/canceled/<?php echo $payment['id'] ?>" class="mr-2" onclick="return confirm('Are you sure want to cancel your payment?')"> Cancel Payment</a>
                                 </small>
                             <?php elseif ($payment['payment_status'] == 2) : ?>
                                 <small>
@@ -116,12 +120,15 @@
                                     <a href="#" class="mr-3" data-toggle="modal" data-target="#uploadModal<?php echo $i; ?>">
                                         Edit Payment Proof
                                     </a>
+                                    <a href="<?php echo site_url(); ?>payments/invoice/<?php echo $payment['id']; ?>" target="_blank" class="mr-2"> Print Invoice </a>
                                 </small>
                             <?php elseif ($payment['payment_status'] == 3) : ?>
                                 <small>
                                     <a href="" class="mr-2"> See Your Order</a>
+                                    <a href="<?php echo site_url(); ?>payments/invoice/<?php echo $payment['id']; ?>" target="_blank" class="mr-2"> Print Invoice </a>
                                 </small>
                             <?php endif; ?>
+
                         </div>
                     </div>
 
@@ -157,6 +164,36 @@
                                             <div class="invalid-feedback">
                                                 <?php echo form_error('account_name', '<div class="pl-2">', '</div>'); ?>
                                             </div>
+                                        </div>
+                                        <input type="hidden" name="payment_id" value="<?php echo $payment['id'] ?>">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="transfertoModal<?php echo $i; ?>" tabindex="-1" role="dialog" aria-labelledby="transfertoModal<?php echo $i; ?>Label" aria-hidden="true">
+                        <div class="modal-dialog" role="document" style="top: 150px;">
+                            <form method="post" action="<?php echo site_url(); ?>payment/change_transferto">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="transfertoModal<?php echo $i; ?>Label">Changed Payment Method</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <select class="custom-select" id="transfer_to" name="transfer_to">
+                                                <?php foreach ($payment_method as $method) : ?>
+                                                    <option value="<?php echo $method['id'] ?>"><?php echo $method['pa_name']; ?> - <?php echo $method['pa_type'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
                                         <input type="hidden" name="payment_id" value="<?php echo $payment['id'] ?>">
                                     </div>

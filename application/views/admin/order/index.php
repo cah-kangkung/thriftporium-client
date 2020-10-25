@@ -47,7 +47,7 @@
                         <?php foreach ($order_list as $order) : ?>
                             <tr>
                                 <td><?php echo $order['order_number']; ?></td>
-                                <td><?php echo $order['destination_receiver'] . ' - ' . $order['destination_receiver']; ?></td>
+                                <td><?php echo $order['destination_receiver'] . ' - ' . $order['destination_phone']; ?></td>
                                 <td>
                                     <?php foreach ($order['products'] as $product) : ?>
                                         <?php echo $product['product_name'] . '(' . $product['qty'] . 'x)'; ?>
@@ -59,9 +59,10 @@
                                     <?php if ($order['order_status'] == 1) : ?>
                                         <!-- Button trigger modal -->
                                         <a href="" data-toggle="modal" data-target="#adminOrderDetailModal<?php echo $i; ?>"><span class="badge badge-info">Detail</span></a>
-                                        <a href="">
-                                            <span class="badge badge-danger" onclick="return confirm('Are you sure want to cancel this order?')">Cancel</span>
-                                        </a>
+                                        <form action="<?php echo site_url(); ?>admin_order/cancel_order" method="post">
+                                            <button type="submit" class="badge badge-danger" onclick="return confirm('Are you sure want to cancel this order?')">Cancel</button>
+                                            <input type="hidden" name="order_id" value="<?php echo $order['id']; ?>">
+                                        </form>
 
                                     <?php elseif ($order['order_status'] == 2) : ?>
                                         <!-- Button trigger modal -->
@@ -101,13 +102,86 @@
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="adminOrderDetailModal<?php echo $i;  ?>Label">Detail</h5>
+                                            <h5 class="modal-title" id="adminOrderDetailModal<?php echo $i;  ?>Label">Detail Order</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-
+                                            <div class="d-flex">
+                                                <p class="ml-auto mb-0">
+                                                    order_status :
+                                                    <?php if ($order['order_status'] == 0) : ?>
+                                                        <span class="badge badge-pill badge-danger p-2"><?php echo $order['shipping_status_detail']; ?></span>
+                                                    <?php elseif ($order['order_status'] == 1) : ?>
+                                                        <span class="badge badge-pill badge-warning p-2"><?php echo $order['shipping_status_detail']; ?></span>
+                                                    <?php elseif ($order['order_status'] == 2) : ?>
+                                                        <span class="badge badge-pill badge-info p-2"><?php echo $order['shipping_status_detail']; ?></span>
+                                                    <?php elseif ($order['order_status'] == 3) : ?>
+                                                        <span class="badge badge-pill badge-success p-2"><?php echo $order['shipping_status_detail']; ?></span>
+                                                    <?php elseif ($order['order_status'] == 4) : ?>
+                                                        <span class="badge badge-pill badge-success p-2"><?php echo $order['shipping_status_detail']; ?></span>
+                                                    <?php endif; ?>
+                                                </p>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-md-3">
+                                                    <p class="card-text">Order Number</p>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <p class="card-text">: <?php echo $order['order_number'] ?> </p>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-md-3">
+                                                    <p class="card-text">Receiver</p>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <p class="card-text">: <?php echo $order['destination_receiver'] ?> </p>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-md-3">
+                                                    <p class="card-text">Phone Number</p>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <p class="card-text">: <?php echo $order['destination_phone'] ?> </p>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-md-3">
+                                                    <p class="card-text">Address</p>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <p class="card-text">: <?php echo $order['destination_street'] . ', ' . $order['destination_city_name'] . " " . $order['destination_zipcode']; ?> </p>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-md-3">
+                                                    <p class="card-text">Courier</p>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <p class="card-text">: <?php echo $order['courier_name'] ?> </p>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-md-3">
+                                                    <p class="card-text">Total Weight</p>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <p class="card-text">: <?php echo $order['total_weight'] ?> gram</p>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-md-3">
+                                                    <p class="card-text">Products</p>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <?php foreach ($order['products'] as $product) : ?>
+                                                        <p class="card-text">: <?php echo $product['product_name'] . ' (' . $product['qty'] . 'x)'; ?> </p>
+                                                    <?php endforeach; ?>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

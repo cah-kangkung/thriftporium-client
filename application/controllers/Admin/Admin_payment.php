@@ -58,4 +58,51 @@ class Admin_payment extends CI_Controller
             }
         }
     }
+
+    public function reject_receipt()
+    {
+        if (!$this->session->userdata('logged_in')) {
+            redirect('auth');
+        } else {
+            $payment_id = (int) htmlspecialchars($this->input->post('payment_id'), true);
+            $data['method'] = "REJECT";
+            $old_image = $this->Payment->get_payment($payment_id)[0]['payment_receipt'];
+            // var_dump($old_image);
+            // die;
+
+            if ($old_image !== NULL or $old_image !== '') {
+                unlink(FCPATH . 'assets/img/payment-receipt/' . $old_image);
+            }
+            $response = $this->Payment->reject_receipt($data, $payment_id);
+            // var_dump($response);
+            // die;
+
+            if ($response['code'] != 200) {
+                $this->session->set_flashdata('danger_alert', 'Upadate failed: ' . $response['code'] . " " . $response['message'] . $response['error_detail']);
+                redirect('admin_payment');
+            } else {
+                // remove old images from server
+                // $old_image = $order['shipping_receipt_picture'];
+                $this->session->set_flashdata('success_alert', 'Receipt Rejected');
+                redirect('admin_payment');
+            }
+        }
+    }
+
+    public function cancel_payment()
+    {
+        if (!$this->session->userdata('logged_in')) {
+            redirect('auth');
+        } else {
+            $payment_id = (int) htmlspecialchars($this->input->post('payment_id'), true);
+            $response = $this->Payment->cancel_payment($payment_id);
+            if ($response['code'] != 200) {
+                $this->session->set_flashdata('danger_alert', 'Upadate failed: ' . $response['code'] . " " . $response['message'] . $response['error_detail']);
+                redirect('admin_payment');
+            } else {
+                $this->session->set_flashdata('success_alert', 'Paymnet Canceled');
+                redirect('admin_payment');
+            }
+        }
+    }
 }

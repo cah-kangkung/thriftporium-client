@@ -7,6 +7,7 @@ class Admin_dashboard extends CI_Controller
     {
         parent::__construct();
         $this->load->model('User_model', 'User');
+        $this->load->model('Payment_model', 'Payment');
     }
 
     public function index()
@@ -24,8 +25,14 @@ class Admin_dashboard extends CI_Controller
 
             $data = [
                 'admin' => $admin,
-                'title' => 'Admin - Dashboard'
+                'title' => 'Admin - Dashboard',
+                'payments' => $this->Payment->get_payment('verified', 'status')
             ];
+            $total_income = 0;
+            for ($i = 0; $i < count($data['payments']); $i++) {
+                $total_income += $data['payments'][$i]['total_price'];
+            }
+            $data['total_income'] = $total_income;
 
             $this->load->view('layout/admin/header.php', $data);
             $this->load->view('layout/admin/sidebar.php');
