@@ -60,11 +60,11 @@
             <div class="navbar-collapse collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item mx-2">
-                        <a class="nav-link" href="#">What's New</a>
+                        <a class="nav-link" href="<?php echo site_url(); ?>products/latest">What's New</a>
                     </li>
                     <?php foreach ($category as $c) : ?>
                         <li class="nav-item mx-2">
-                            <a class="nav-link" href="#"><?php echo $c['category_name']; ?></a>
+                            <a class="nav-link" href="<?php echo site_url(); ?>products/category/<?php echo $c['category_name'] ?>"><?php echo $c['category_name']; ?></a>
                         </li>
                     <?php endforeach; ?>
                     <!-- <li class="nav-item mx-2 dropdown">
