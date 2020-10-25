@@ -72,9 +72,18 @@
                                     <?php if ($payment['payment_status'] == 1 || $payment['payment_status'] == 2) : ?>
                                         <!-- Button trigger modal -->
                                         <a href="" data-toggle="modal" data-target="#adminPaymentModal<?php echo $i; ?>"><span class="badge badge-info">Detail</span></a>
-                                        <a href="">
-                                            <span class="badge badge-danger" onclick="return confirm('Are you sure want to cancel this payment?')">Cancel</span>
-                                        </a>
+                                        <form action="<?php echo site_url(); ?>admin_payment/reject_receipt" method="post">
+                                            <button type="submit" class="badge badge-warning" onclick="return confirm('Are you sure want to reject this receipt?')">
+                                                Reject
+                                            </button>
+                                            <input type="hidden" name="payment_id" value="<?php echo $payment['id']; ?>">
+                                        </form>
+                                        <form action="<?php echo site_url(); ?>admin_payment/cancel_payment" method="post">
+                                            <button type="submit" class="badge badge-danger" onclick="return confirm('Are you sure want to cancel this payment?')">
+                                                Cancel
+                                            </button>
+                                            <input type="hidden" name="payment_id" value="<?php echo $payment['id']; ?>">
+                                        </form>
                                         <form action="<?php echo site_url(); ?>admin_payment/verify_payment" method="post">
                                             <button type="submit" class="badge badge-success" onclick="return confirm('Are you sure want to verify this payment?')">
                                                 Verify
@@ -176,7 +185,10 @@
                                             </div>
                                             <div class="row mb-2">
                                                 <div class="col-md-3">
-                                                    <img src="<?php echo base_url(); ?>assets/img/payment-receipt/<?php echo $payment['payment_receipt']; ?>" alt="" style="height: 100%; width: 200%; object-fit: contain;">
+                                                    <?php if ($payment['payment_receipt']) { ?>
+                                                        <img src="<?php echo base_url(); ?>assets/img/payment-receipt/<?php echo $payment['payment_receipt']; ?>" alt="" style="height: 100%; width: 200%; object-fit: contain;">
+                                                    <?php } else { ?> <p class="card-text">Bukti bayar belum di upload</p>
+                                                    <?php } ?>
                                                 </div>
                                             </div>
                                         </div>

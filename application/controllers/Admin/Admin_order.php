@@ -12,6 +12,7 @@ class Admin_order extends CI_Controller
         $this->load->library('form_validation');
         $this->load->model('User_model', 'User');
         $this->load->model('Order_model', 'Order');
+        $this->load->model('Payment_model', 'Payment');
     }
 
     public function index()
@@ -107,6 +108,25 @@ class Admin_order extends CI_Controller
         } else {
             $this->session->set_flashdata('success_alert', 'Order has been finished');
             redirect('admin_order');
+        }
+    }
+
+    public function cancel_order()
+    {
+        if (!$this->session->userdata('logged_in')) {
+            redirect('auth');
+        } else {
+            $order_id = (int) htmlspecialchars($this->input->post('order_id'), true);
+            $payment_id = $this->Payment->get_payment($order_id, 'order')[0]['id'];
+
+            $response = $this->Order->cancel_order($payment_id);
+            if ($response['code'] != 200) {
+                $this->session->set_flashdata('danger_alert', 'Upadate failed: ' . $response['code'] . " " . $response['message'] . $response['error_detail']);
+                redirect('admin_order');
+            } else {
+                $this->session->set_flashdata('success_alert', 'Order Canceled');
+                redirect('admin_order');
+            }
         }
     }
 }

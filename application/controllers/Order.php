@@ -14,6 +14,7 @@ class Order extends CI_Controller
         $this->load->model('Order_model', 'Order');
         $this->load->model('Cart_model', 'Cart');
         $this->load->model('Address_model', 'Address');
+        $this->load->model('Paymentmethod_model', 'Method');
     }
 
     public function order_list()
@@ -73,6 +74,7 @@ class Order extends CI_Controller
                     'category' => $this->Category->get_all_category(),
                     'cities' => $this->Address->get_cities(),
                     'cart_items' => $cart_items,
+                    'payment_method' => $this->Method->get_all_method()
                 ];
 
                 $this->load->view('layout/header', $data);
@@ -118,7 +120,7 @@ class Order extends CI_Controller
                     // $this->session->set_flashdata('danger_alert', 'Operation failed: ' . $response['message'] . $response['error_detail']);
                     redirect('payment/payment_list');
                 } else {
-                    $this->session->set_flashdata('success_alert', 'Category has been added');
+                    $this->session->set_flashdata('success_alert', 'Order created');
                     redirect('payment/payment_list');
                 }
             }

@@ -5,7 +5,7 @@
                 Order
             </h2>
 
-            <ul class="nav nav-pills mb-5">
+            <!-- <ul class="nav nav-pills mb-5">
                 <li class="nav-item">
                     <a class="nav-link <?php echo ($this->input->get('filter') == '' ? 'active rounded-pill' : ''); ?>" href="<?php echo site_url(); ?>payment/order_list?filter=">All</a>
                 </li>
@@ -21,7 +21,7 @@
                 <li class="nav-item">
                     <a class="nav-link <?php echo ($this->input->get('filter') == '4' ? 'active rounded-pill' : ''); ?>" href="<?php echo site_url(); ?>payment/order_list?filter=4">Done</a>
                 </li>
-            </ul>
+            </ul> -->
 
             <?php if ($this->session->flashdata('danger_alert')) : ?>
                 <div class="alert alert-danger" role="alert">
@@ -62,7 +62,7 @@
                             </p>
                             <?php if ($order['order_status'] == 1) : ?>
                                 <div class="alert alert-warning" role="alert">
-                                    Bayar Sebelum <?php echo $order['order_created'] ?>
+                                    Bayar Sebelum <?php echo $order['order_expired'] ?>
                                 </div>
                             <?php elseif ($order['order_status'] == 3) : ?>
                                 <div class="alert alert-success" role="alert">

@@ -59,9 +59,10 @@
                                     <?php if ($order['order_status'] == 1) : ?>
                                         <!-- Button trigger modal -->
                                         <a href="" data-toggle="modal" data-target="#adminOrderDetailModal<?php echo $i; ?>"><span class="badge badge-info">Detail</span></a>
-                                        <a href="">
-                                            <span class="badge badge-danger" onclick="return confirm('Are you sure want to cancel this order?')">Cancel</span>
-                                        </a>
+                                        <form action="<?php echo site_url(); ?>admin_order/cancel_order" method="post">
+                                            <button type="submit" class="badge badge-danger" onclick="return confirm('Are you sure want to cancel this order?')">Cancel</button>
+                                            <input type="hidden" name="order_id" value="<?php echo $order['id']; ?>">
+                                        </form>
 
                                     <?php elseif ($order['order_status'] == 2) : ?>
                                         <!-- Button trigger modal -->

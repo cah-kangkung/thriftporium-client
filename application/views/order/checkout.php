@@ -111,7 +111,9 @@
                                 <div class="form-group">
                                     <label for="transfer_to">Choose Payment Method</label>
                                     <select class="custom-select" id="transfer_to" name="transfer_to">
-                                        <option value="98933793653522432">Bank Syariah Mandiri - TRANSFER</option>
+                                        <?php foreach ($payment_method as $method) : ?>
+                                            <option value="<?php echo $method['id'] ?>"><?php echo $method['pa_name']; ?> - <?php echo $method['pa_type'] ?></option>
+                                        <?php endforeach; ?>
                                     </select>
                                 </div>
                                 <hr>
