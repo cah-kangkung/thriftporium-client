@@ -87,4 +87,36 @@ class User_model extends CI_Model
         $result = json_decode($response->getBody()->getContents(), true);
         return $result;
     }
+
+    public function get_user_socmed($uid, $provider)
+    {
+        try {
+            $response = $this->_client->request('GET', 'user', [
+                'query' => [
+                    "uid" => $uid,
+                    "provider" => $provider
+                ]
+            ]);
+        } catch (\Throwable $e) {
+            return null;
+        }
+
+        $result = json_decode($response->getBody()->getContents(), true);
+
+        return $result['data'][0];
+    }
+
+    public function add_user_socmed($data = array())
+    {
+        try {
+            $response = $this->_client->request('POST', 'user/socmed', [
+                'json' => $data,
+            ]);
+        } catch (RequestException $e) {
+            return json_decode($e->getResponse()->getBody()->getContents(), true);
+        }
+
+        $result = json_decode($response->getBody()->getContents(), true);
+        return $result;
+    }
 }

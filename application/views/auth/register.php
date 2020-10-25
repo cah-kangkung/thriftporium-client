@@ -74,14 +74,15 @@
                             <a href="index.html" class="btn btn-facebook btn-user btn-block">
                                 <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
                             </a> -->
-                            </form>
-                            <hr>
-                            <div class="text-center">
-                                <a class="small" href="forgot-password.html">Forgot Password?</a>
-                            </div>
-                            <div class="text-center">
-                                <a class="small" href="<?php echo site_url(); ?>auth">Already have an account? Login!</a>
-                            </div>
+                        </form>
+                        <br>
+                        <a href="<?php echo $google_url; ?>">google register</a>
+                        <hr>
+                        <div class="text-center">
+                            <a class="small" href="forgot-password.html">Forgot Password?</a>
+                        </div>
+                        <div class="text-center">
+                            <a class="small" href="<?php echo site_url(); ?>auth">Already have an account? Login!</a>
                         </div>
                     </div>
                 </div>

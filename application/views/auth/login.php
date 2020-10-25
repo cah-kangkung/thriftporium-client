@@ -73,14 +73,15 @@
                                             <i class="fab fa-facebook-f fa-fw"></i> Login with
                                             Facebook
                                         </a> -->
-                                    </form>
-                                    <hr />
-                                    <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="<?php echo site_url(); ?>auth/register">Create an Account!</a>
-                                    </div>
+                                </form>
+                                <br>
+                                <a href="<?php echo $google_url; ?>">Login With Google</a>
+                                <hr />
+                                <div class="text-center">
+                                    <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                </div>
+                                <div class="text-center">
+                                    <a class="small" href="<?php echo site_url(); ?>auth/register">Create an Account!</a>
                                 </div>
                             </div>
                         </div>

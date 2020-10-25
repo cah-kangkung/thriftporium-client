@@ -84,6 +84,9 @@
                                         <!-- Button trigger modal -->
                                         <a href="" data-toggle="modal" data-target="#adminOrderDetailModal<?php echo $i; ?>"><span class="badge badge-info">Detail</span>
                                         </a>
+                                        <a href="" data-toggle="modal" data-target="#adminUploadResiModal<?php echo $i; ?>">
+                                            <span class="badge badge-secondary">See Resi</span>
+                                        </a>
 
                                     <?php elseif ($order['order_status'] == 0) : ?>
                                         <!-- Button trigger modal -->
