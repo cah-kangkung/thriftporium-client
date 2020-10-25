@@ -16,8 +16,8 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Monthly Earning</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">Rp 0,000</div>
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Pendapatan</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Rp <?php echo $total_income / 1000; ?>.000</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -27,7 +27,7 @@
             </div>
         </div>
 
-        <!-- Total User Card -->
+        <!-- Total User Card
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
@@ -42,8 +42,40 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
+    </div>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>No. Invoice</th>
+                            <th>Nama Pembeli</th>
+                            <th>Total Harga</th>
+                            <th>Metode Pembayaran</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $i = 1; ?>
+                        <?php foreach ($payments as $p) : ?>
+                            <tr>
+                                <td><?php echo $i; ?></td>
+                                <td><?php echo $p['inv_number']; ?></td>
+                                <td><?php echo $p['user_firstname'] . " " .  $p['user_lastname']; ?></td>
+                                <td><?php echo $p['total_price'] / 1000; ?>.000</td>
+                                <td><?php echo $p['payment_accounttype']; ?></td>
+                            </tr>
+                            <?php $i++; ?>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
 </div>
