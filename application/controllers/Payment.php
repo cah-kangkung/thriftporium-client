@@ -89,7 +89,6 @@ class Payment extends CI_Controller
 
     public function upload_proof()
     {
-
         if (!$this->session->userdata('logged_in')) {
             $this->session->set_flashdata('success', 'You must login before!');
             redirect('auth');

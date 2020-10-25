@@ -40,4 +40,22 @@ class Admin_payment extends CI_Controller
             $this->load->view('layout/admin/footer.php');
         }
     }
+
+    public function verify_payment()
+    {
+        if (!$this->session->userdata('logged_in')) {
+            redirect('auth');
+        } else {
+            $payment_id = (int) htmlspecialchars($this->input->post('payment_id'), true);
+
+            $response = $this->Payment->verify_payment($payment_id);
+            if ($response['code'] != 200) {
+                $this->session->set_flashdata('danger_alert', 'Upadate failed: ' . $response['code'] . " " . $response['message'] . $response['error_detail']);
+                redirect('admin_payment');
+            } else {
+                $this->session->set_flashdata('success_alert', 'Payment verified!');
+                redirect('admin_payment');
+            }
+        }
+    }
 }
