@@ -81,9 +81,6 @@
                 </div>
             </div>
         </div>
-        <footer>
-
-        </footer>
         <!-- Optional JavaScript -->
         <!-- JavaScript Dependencies: jQuery, Popper.js, Bootstrap JS, Shards JS -->
         <script src="<?php echo base_url(); ?>assets/js/jquery-3.5.1.min.js"></script>
