@@ -19,7 +19,7 @@
 
 <body>
     <div class="floating-customer-service">
-        <a class="" href="https://lin.ee/TWMKzwC" target="_blank"><img height="50" border="0" src="https://scdn.line-apps.com/n/line_add_friends/btn/id.png"></a>
+        <a class="" href="https://lin.ee/TWMKzwC" target="_blank"><img height="70" border="0" src="<?php echo base_url(); ?>assets/img/logo/line-logo.png"></a>
     </div>
     <header id="header" class="sticky-top bg-white">
         <div class="top-bar">
