@@ -21,13 +21,20 @@ class Home extends CI_Controller
         if ($user['role_id'] !== 2001) {
             redirect('admin_dashboard');
         }
+
+        // filter product
         $products = $this->Product->get_product_by_time();
         $products_filtered = array();
-        foreach ($products as $product) {
-            if ($product['product_status'] == 1) {
-                array_push($products_filtered, $product);
+        if ($products) {
+            foreach ($products as $product) {
+                if ($product['product_status'] == 1) {
+                    array_push($products_filtered, $product);
+                }
             }
+        } else {
+            $products_filtered = $products;
         }
+
         $data = [
             'user' => $user,
             'title' => 'Thriftporium - Home',

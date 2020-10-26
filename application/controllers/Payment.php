@@ -179,7 +179,13 @@ class Payment extends CI_Controller
             // var_dump($response);
             // die;
             if ($response['code'] != 200) {
-                $this->session->set_flashdata('danger_alert', 'Upadate failed: ' . $response['code'] . " " . $response['message'] . $response['error_detail']);
+                $response_message = '';
+                if ($response['message'] == null && $response['error_detail'] == null) {
+                    $response_message = 'Data not changed';
+                } else {
+                    $response_message = 'Upadate failed: ' . $response['code'] . ' ' . $response['message'] . $response['error_detail'];
+                }
+                $this->session->set_flashdata('danger_alert', $response_message);
                 redirect('payment');
             } else {
                 $this->session->set_flashdata('success_alert', 'Payment method changed');
