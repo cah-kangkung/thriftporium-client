@@ -124,7 +124,7 @@
                                 </small>
                             <?php elseif ($payment['payment_status'] == 3) : ?>
                                 <small>
-                                    <a href="" class="mr-2"> See Your Order</a>
+                                    <a href="<?php echo site_url(); ?>order/order_list" class="mr-2"> See Your Order</a>
                                     <a href="<?php echo site_url(); ?>payments/invoice/<?php echo $payment['id']; ?>" target="_blank" class="mr-2"> Print Invoice </a>
                                 </small>
                             <?php endif; ?>

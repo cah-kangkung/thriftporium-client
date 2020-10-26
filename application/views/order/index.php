@@ -49,11 +49,11 @@
                                     <?php elseif ($order['order_status'] == 1) : ?>
                                         <span class="badge badge-pill badge-warning p-2">Menunggu Pembayaran</span>
                                     <?php elseif ($order['order_status'] == 2) : ?>
-                                        <span class="badge badge-pill badge-info p-2">Bukti Diunggah</span>
+                                        <span class="badge badge-pill badge-info p-2">Process</span>
                                     <?php elseif ($order['order_status'] == 3) : ?>
-                                        <span class="badge badge-pill badge-success p-2">Pembayaran Terkonfirmasi</span>
+                                        <span class="badge badge-pill badge-success p-2">Pengiriman</span>
                                     <?php elseif ($order['order_status'] == 4) : ?>
-                                        <span class="badge badge-pill badge-success p-2">Selesai</span>
+                                        <span class="badge badge-pill badge-success p-2">Order Selesai</span>
                                     <?php endif; ?>
                                 </p>
                             </div>
@@ -66,11 +66,11 @@
                                 </div>
                             <?php elseif ($order['order_status'] == 3) : ?>
                                 <div class="alert alert-success" role="alert">
-                                    Pembayaran telah dikonfirmasi!
+                                    Paket akan segera dikirim!
                                 </div>
                             <?php elseif ($order['order_status'] == 4) : ?>
                                 <div class="alert alert-success" role="alert">
-                                    Transaksi Selesai
+                                    Paket Diterima!!
                                 </div>
                             <?php elseif ($order['order_status'] == 0) : ?>
                                 <div class="alert alert-danger" role="alert">
@@ -145,6 +145,11 @@
                                 </div>
                             </div>
                             <br>
+                            <?php if ($order['order_status'] == 3) : ?>
+                                <a href="<?php echo site_url(); ?>order/order_finished/<?php echo $order['shipping_id']; ?>" onclick="return confirm('Are you sure want to finish this order? make sure your packet arrive!!')">
+                                    <span class="badge badge-success">Order Finished</span>
+                                </a>
+                            <?php endif ?>
                         </div>
                     </div>
                 <?php endforeach; ?>

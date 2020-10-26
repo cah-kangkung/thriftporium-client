@@ -29,10 +29,14 @@ class Admin_dashboard extends CI_Controller
                 'payments' => $this->Payment->get_payment('verified', 'status')
             ];
             $total_income = 0;
-            for ($i = 0; $i < count($data['payments']); $i++) {
-                $total_income += $data['payments'][$i]['total_price'];
+            if ($data['payments']) {
+                for ($i = 0; $i < count($data['payments']); $i++) {
+                    $total_income += $data['payments'][$i]['total_price'];
+                }
+                $data['total_income'] = $total_income;
+            } else {
+                $data['total_income'] = $total_income;
             }
-            $data['total_income'] = $total_income;
 
             $this->load->view('layout/admin/header.php', $data);
             $this->load->view('layout/admin/sidebar.php');
