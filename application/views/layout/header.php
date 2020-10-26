@@ -18,6 +18,9 @@
 </head>
 
 <body>
+    <div class="floating-customer-service">
+        <a class="" href="https://lin.ee/TWMKzwC" target="_blank"><img height="50" border="0" src="https://scdn.line-apps.com/n/line_add_friends/btn/id.png"></a>
+    </div>
     <header id="header" class="sticky-top bg-white">
         <div class="top-bar">
             <a class="navbar-brand" href="<?php echo site_url(); ?>home" style="height: 100%;">

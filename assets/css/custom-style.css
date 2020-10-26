@@ -90,6 +90,12 @@ input[type="number"] {
 .navbar-toggler {
 	width: 100%;
 }
+.floating-customer-service {
+	position: fixed;
+	bottom: 30px;
+	right: 30px;
+	z-index: 100;
+}
 
 /* Main Content */
 .carousel {
