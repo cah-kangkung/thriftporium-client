@@ -45,7 +45,7 @@ class Cart extends CI_Controller
             $user_id = htmlspecialchars($this->input->post('user_id', true));
 
             $product_status = (int) htmlspecialchars($this->input->post('product_status', true));
-            if ($$product_status != 1) {
+            if ($product_status != 1) {
                 $this->session->set_flashdata('danger_alert', 'Item is not published!');
                 redirect('cart');
             }
