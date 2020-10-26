@@ -19,7 +19,7 @@
                         <?php $i = 0; ?>
                         <?php $total_price = 0; ?>
                         <?php foreach ($cart_products as $cart_product) : ?>
-                            <div class="card cart-card">
+                            <div class="card cart-card <?php echo ($cart_product['product_status'] != 1) ? 'disable-cart-item' : ''; ?>">
                                 <div class="row card-body">
                                     <div class="col-3 col-sm-2 cart-item-image">
                                         <a href="<?php echo site_url(); ?>products/<?php echo $cart_product['product_id']; ?>">

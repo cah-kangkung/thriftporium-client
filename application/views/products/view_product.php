@@ -42,7 +42,20 @@
 
                         <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
                         <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                        <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                        <input type="hidden" name="product_status" value="<?php echo $product['product_status']; ?>">
+
+                        <?php if ($this->session->flashdata('danger_alert')) : ?>
+                            <div class="alert alert-danger" role="alert">
+                                <?php echo $this->session->flashdata('danger_alert'); ?>
+                            </div>
+                        <?php endif; ?>
+                        <?php if ($this->session->flashdata('success_alert')) : ?>
+                            <div class="alert alert-success" role="alert">
+                                <?php echo $this->session->flashdata('success_alert'); ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <button class="btn btn-primary btn-block" type="submit" <?php echo ($product['product_status'] != 1 || $product['product_availability'] != 1) ? 'disabled' : ''; ?>><i class="fas fa-shopping-cart"></i> Add to Cart</button>
                     </form>
                 </div>
             </div>

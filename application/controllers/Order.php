@@ -50,11 +50,19 @@ class Order extends CI_Controller
             // get all user information from the database
             $email = $this->session->userdata('user_email');
             $user = $this->User->get_user($email, 'email');
+            if ($user['user_gender'] == null || $user['user_phone'] == null || $user['user_address'] == null || $user['user_city'] == null || $user['user_zipcode'] == null) {
+                $this->session->set_flashdata('danger_alert', 'You must complete your profile first');
+                redirect('profile/edit/' . $user['id']);
+            }
+
             $cart_items = unserialize(base64_decode($this->input->post('cart_items')));
 
             for ($i = 0; $i < count($cart_items); $i++) {
                 if ($cart_items[$i]['product_availability'] == 0) {
                     $this->session->set_flashdata('danger_alert', $cart_items[$i]['product_name'] . ' is out of stock!');
+                    redirect('cart');
+                } elseif ($cart_items[$i]['product_status'] != 1) {
+                    $this->session->set_flashdata('danger_alert', $cart_items[$i]['product_name'] . ' is not published');
                     redirect('cart');
                 }
             }

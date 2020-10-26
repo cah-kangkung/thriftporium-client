@@ -200,6 +200,9 @@ input[type="number"] {
 	top: -20px;
 	left: -10px;
 }
+.disable-cart-item {
+	background-color: rgba(0, 0, 0, 0.404);
+}
 
 /* Checkout */
 .my-address {

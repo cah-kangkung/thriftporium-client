@@ -43,15 +43,28 @@ class Cart extends CI_Controller
             redirect('auth');
         } else {
             $user_id = htmlspecialchars($this->input->post('user_id', true));
+
+            $product_status = (int) htmlspecialchars($this->input->post('product_status', true));
+            if ($$product_status != 1) {
+                $this->session->set_flashdata('danger_alert', 'Item is not published!');
+                redirect('cart');
+            }
+
+            $qty = (int) htmlspecialchars($this->input->post('quantity', true));
+            if ($qty < 1) {
+                $this->session->set_flashdata('danger_alert', 'Item out of stock!');
+                redirect('cart');
+            }
+
             $data = [
                 'product' => (int) htmlspecialchars($this->input->post('product_id', true)),
-                'qty' => (int) htmlspecialchars($this->input->post('quantity', true)),
+                'qty' => $qty,
             ];
 
             $response = $this->Cart->add_to_cart($data, $user_id);
             if ($response['code'] != 200) {
                 // echo 'failed' . $response['message'];
-                $this->session->set_flashdata('danger_alert', 'Operation failed: ' . $response['message'] . ' ' . 'Item already in cart!');
+                $this->session->set_flashdata('danger_alert', 'Operation failed: ' . $response['message'] . ' ' . $response['error_detail']);
                 redirect('cart');
             } else {
                 // echo 'success';

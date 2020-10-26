@@ -97,7 +97,7 @@ class Payment extends CI_Controller
         } else {
 
             $payment_id = (int) htmlspecialchars($this->input->post('payment_id', true));
-            $payment = $this->Payment->get_payment($payment_id, 'id');
+            $payment = $this->Payment->get_payment($payment_id, 'id')[0];
 
             // checking if there is a picture to be uploaded
             $check_upload = $_FILES['image']['name'];

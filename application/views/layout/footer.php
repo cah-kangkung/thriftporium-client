@@ -1,12 +1,14 @@
 <footer>
     <div class="container">
-        <div class="copyright">
-            Copyright &#9400; 2020 Thrifporium
-        </div>
-        <div class="footer-list ml-auto">
-            <?php foreach ($category as $c) : ?>
-                <a class="" href="<?php echo site_url(); ?>products/category/<?php echo $c['category_name'] ?>"><?php echo $c['category_name']; ?></a>
-            <?php endforeach; ?>
+        <div class="footer-container" style="width: 100%; display: flex;">
+            <div class="copyright">
+                Copyright &#9400; 2020 Thriftporium
+            </div>
+            <div class="footer-list d-flex ml-auto">
+                <a class="" href="https://www.instagram.com/thriftporium.id/" target="_blank"><i class="fab fa-instagram fa-lg"></i></a>
+                <a class="" href="https://lin.ee/TWMKzwC" target="_blank"><i class="fab fa-line fa-lg"></i></a>
+                <a class="mr-0" href="https://twitter.com/thriftporium_id" target="_blank"><i class="fab fa-twitter fa-lg"></i></a>
+            </div>
         </div>
     </div>
 </footer>

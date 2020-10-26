@@ -62,11 +62,24 @@ class Products extends CI_Controller
         if ($category == '') {
             redirect('home');
         } else {
+            // filter product
+            $products = $this->Product->get_product_by_category($category);
+            $products_filtered = array();
+            if ($products) {
+                foreach ($products as $product) {
+                    if ($product['product_status'] == 1) {
+                        array_push($products_filtered, $product);
+                    }
+                }
+            } else {
+                $products_filtered = $products;
+            }
+
             $data = [
                 'user' => $user,
                 'title' => 'Thriftporium - Products - ' . $category,
                 'category' => $this->Category->get_all_category(),
-                'products' => $this->Product->get_product_by_category($category),
+                'products' => $products_filtered,
             ];
             // var_dump($data);
             // die;
@@ -81,11 +94,24 @@ class Products extends CI_Controller
         $email = $this->session->userdata('user_email');
         $user = $this->User->get_user($email, 'email');
 
+        // filter product
+        $products = $this->Product->get_product_by_time();
+        $products_filtered = array();
+        if ($products) {
+            foreach ($products as $product) {
+                if ($product['product_status'] == 1) {
+                    array_push($products_filtered, $product);
+                }
+            }
+        } else {
+            $products_filtered = $products;
+        }
+
         $data = [
             'user' => $user,
             'title' => 'Thriftporium - Products - latest',
             'category' => $this->Category->get_all_category(),
-            'products' => $this->Product->get_product_by_time(),
+            'products' => $products_filtered,
         ];
         // var_dump($data);
         // die;
@@ -99,11 +125,24 @@ class Products extends CI_Controller
         $email = $this->session->userdata('user_email');
         $user = $this->User->get_user($email, 'email');
 
+        // filter product
+        $products = $this->Product->get_product($_GET['name'], 'name');
+        $products_filtered = array();
+        if ($products) {
+            foreach ($products as $product) {
+                if ($product['product_status'] == 1) {
+                    array_push($products_filtered, $product);
+                }
+            }
+        } else {
+            $products_filtered = $products;
+        }
+
         $data = [
             'user' => $user,
             'title' => 'Thriftporium - Products - search',
             'category' => $this->Category->get_all_category(),
-            'products' => $this->Product->get_product($_GET['name'], 'name'),
+            'products' => $products_filtered,
         ];
 
         $this->load->view('layout/header', $data);
