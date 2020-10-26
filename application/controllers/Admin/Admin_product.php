@@ -198,7 +198,7 @@ class Admin_product extends CI_Controller
                     'description' => htmlspecialchars($this->input->post('description', true)),
                     'stock' => $stock,
                     'weight' => (int) htmlspecialchars($this->input->post('weight', true)),
-                    'availability' => $stock - $product['product_availability'],
+                    'availability' => $product['product_availability'] + ($stock - $product['product_stock']),
                     'category_id' => (int) htmlspecialchars($this->input->post('category_id', true)),
                     'price' => (int) htmlspecialchars($this->input->post('price', true)),
                 ];
