@@ -20,7 +20,25 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">Rp <?php echo $total_income / 1000; ?>.000</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                            <i class="fas fa-money-bill-wave-alt fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Verified Transaction Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Verified Transaction</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $total_payments; ?></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-cash-register fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -46,42 +64,45 @@
 
     </div>
 
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <?php if (isset($payments)) : ?>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>No. Invoice</th>
-                                <th>Nama Pembeli</th>
-                                <th>Total Harga</th>
-                                <th>Metode Pembayaran</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $i = 1; ?>
-                            <?php foreach ($payments as $p) : ?>
-                                <tr>
-                                    <td><?php echo $i; ?></td>
-                                    <td><?php echo $p['inv_number']; ?></td>
-                                    <td><?php echo $p['user_firstname'] . " " .  $p['user_lastname']; ?></td>
-                                    <td><?php echo $p['total_price'] / 1000; ?>.000</td>
-                                    <td><?php echo $p['payment_accounttype']; ?></td>
-                                </tr>
-                                <?php $i++; ?>
-                            <?php endforeach ?>
-                        </tbody>
-                    </table>
+    <div class="row">
+
+        <!-- Bar Chart -->
+        <div class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Latest Transaction</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-bar">
+                        <canvas id="myBarChart"></canvas>
+                    </div>
                 </div>
             </div>
-        <?php else : ?>
-            <div class="card-body text-center">
-                <div>Tidak ada transaksi di Sistem</div>
+        </div>
+
+        <!-- Pie Chart -->
+        <div class="col-xl-4 col-lg-5">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Payment Methods</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-pie pt-4 pb-2">
+                        <canvas id="myPieChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-center small">
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-primary"></i> Transfer
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-success"></i> Fintech
+                        </span>
+                    </div>
+                </div>
             </div>
-        <?php endif; ?>
+        </div>
     </div>
 
 </div>
