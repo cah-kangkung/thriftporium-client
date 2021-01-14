@@ -67,6 +67,7 @@
                                 </div>
                             </div>
                             <div id="shippingContainer" class="form-group row">
+                                <div class="loader"></div>
                             </div>
                         </div>
                     </div>
@@ -97,6 +98,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- Choose Payment Modal -->
                 <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -109,8 +111,9 @@
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="transfer_to">Choose Payment Method</label>
-                                    <select class="custom-select" id="transfer_to" name="transfer_to">
+                                    <h6 for="transfer_to">Choose Payment Method</h6>
+                                    <select class="custom-select" id="transfer_to" name="transfer_to" required>
+                                        <option value="" disabled selected hidden>Choose Payment Method...</option>
                                         <?php foreach ($payment_method as $method) : ?>
                                             <option value="<?php echo $method['id'] ?>"><?php echo $method['pa_name']; ?> - <?php echo $method['pa_type'] ?></option>
                                         <?php endforeach; ?>
@@ -127,27 +130,10 @@
                                     </div>
                                 </div> -->
                                 <h6>User Information</h6>
-                                <div class="form-group">
-                                    <label for="account_bank">Account Bank*</label>
-                                    <input type="text" class="form-control <?php echo (form_error('account_bank')) ? 'is-invalid' : ''; ?>" name="account_bank" id="account_bank" value="<?php echo set_value('account_bank'); ?>">
-                                    <div class="invalid-feedback">
-                                        <?php echo form_error('account_bank', '<div class="pl-2">', '</div>'); ?>
-                                    </div>
+                                <div id="userInformation">
+
                                 </div>
-                                <div class="form-group">
-                                    <label for="account_name">Account Name*</label>
-                                    <input type="text" class="form-control <?php echo (form_error('account_name')) ? 'is-invalid' : ''; ?>" name="account_name" id="account_name" value="<?php echo set_value('account_name'); ?>">
-                                    <div class="invalid-feedback">
-                                        <?php echo form_error('account_name', '<div class="pl-2">', '</div>'); ?>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="account_number">Account Number*</label>
-                                    <input type="text" class="form-control <?php echo (form_error('account_number')) ? 'is-invalid' : ''; ?>" name="account_number" id="account_number" value="<?php echo set_value('account_number'); ?>">
-                                    <div class="invalid-feedback">
-                                        <?php echo form_error('account_number', '<div class="pl-2">', '</div>'); ?>
-                                    </div>
-                                </div>
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -242,7 +228,9 @@
     };
     chooseAddress();
 
+    const loader = document.querySelector('.loader');
     document.getElementById('shippingCourier').addEventListener('change', function() {
+        loader.style.display = 'block';
         const url = '<?php echo site_url(); ?>order/get_shipping_cost';
         let origin = 151;
         let destination = <?php echo $user['city_id']; ?>;
@@ -284,4 +272,67 @@
             document.getElementById('btnPayment').disabled = false
         });
     };
+
+    document.querySelector('#transfer_to').addEventListener('change', function() {
+        const userInformation = document.querySelector('#userInformation');
+
+        // get payment method text
+        let text = this.options[this.selectedIndex].text;
+        let textArray = text.split(" - ");
+        let paymentMethod = textArray[1];
+
+        console.log(textArray);
+
+        let template = ``;
+        if (paymentMethod == 'TRANSFER') {
+            template =
+                `<div class="form-group">
+                    <label for="account_bank">Account Bank*</label>
+                    <input type="text" class="form-control <?php echo (form_error('account_bank')) ? 'is-invalid' : ''; ?>" name="account_bank" id="account_bank" value="${textArray[0]}" readonly>
+                    <div class="invalid-feedback">
+                        <?php echo form_error('account_bank', '<div class="pl-2">', '</div>'); ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="account_name">Account Name*</label>
+                    <input type="text" class="form-control <?php echo (form_error('account_name')) ? 'is-invalid' : ''; ?>" name="account_name" id="account_name" value="<?php echo set_value('account_name'); ?>">
+                    <div class="invalid-feedback">
+                        <?php echo form_error('account_name', '<div class="pl-2">', '</div>'); ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="account_number">Account Number*</label>
+                    <input type="text" class="form-control <?php echo (form_error('account_number')) ? 'is-invalid' : ''; ?>" name="account_number" id="account_number" value="<?php echo set_value('account_number'); ?>">
+                    <div class="invalid-feedback">
+                        <?php echo form_error('account_number', '<div class="pl-2">', '</div>'); ?>
+                    </div>
+                </div>`;
+        } else {
+            template =
+                `<div class="form-group">
+                    <label for="account_bank">Fintech*</label>
+                    <input type="text" class="form-control <?php echo (form_error('account_bank')) ? 'is-invalid' : ''; ?>" name="account_bank" id="account_bank" value="${textArray[0]}" readonly>
+                    <div class="invalid-feedback">
+                        <?php echo form_error('account_bank', '<div class="pl-2">', '</div>'); ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="account_name">${textArray[0]} Account Name*</label>
+                    <input type="text" class="form-control <?php echo (form_error('account_name')) ? 'is-invalid' : ''; ?>" name="account_name" id="account_name" value="<?php echo set_value('account_name'); ?>">
+                    <div class="invalid-feedback">
+                        <?php echo form_error('account_name', '<div class="pl-2">', '</div>'); ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="account_number">${textArray[0]} Phone Number*</label>
+                    <input type="text" class="form-control <?php echo (form_error('account_number')) ? 'is-invalid' : ''; ?>" name="account_number" id="account_number" value="<?php echo set_value('account_number'); ?>">
+                    <div class="invalid-feedback">
+                        <?php echo form_error('account_number', '<div class="pl-2">', '</div>'); ?>
+                    </div>
+                </div>`;
+        }
+
+        userInformation.innerHTML = template
+
+    });
 </script>

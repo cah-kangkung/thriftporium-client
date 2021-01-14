@@ -75,6 +75,7 @@ class Order extends CI_Controller
             $this->form_validation->set_rules('account_bank', 'Account Bank', 'required|trim');
             $this->form_validation->set_rules('account_name', 'Account Name', 'required|trim');
             $this->form_validation->set_rules('account_number', 'Account Number', 'required|trim');
+
             if ($this->form_validation->run() == FALSE) {
                 $data = [
                     'user' => $user,
